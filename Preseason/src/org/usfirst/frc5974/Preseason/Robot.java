@@ -81,8 +81,6 @@ public class Robot extends IterativeRobot {
 	boolean XPressed = false;
 	boolean JoyRightToggle = false;
 	
-	boolean toggleDriveMode = true;
-	
 	void updateAll(){
 		updateController();
 		updateSensors();
@@ -144,20 +142,10 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public void UpdateMotors() {
-		if (toggleDriveMode) {
-			//Tank drive:
-			motorLeft.set((-1 * driveSpeed) * AxisControlLeftY);
-			motorOtherLeft.set((-1 * driveSpeed) * AxisControlLeftY);
-			motorRight.set(driveSpeed * AxisControlRightY);
-			motorOtherRight.set(driveSpeed * AxisControlRightY);
-		}
-		else {
-			//Arcade drive:
-			motorLeft.set(     (      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-			motorOtherLeft.set((      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-			motorRight.set((     -1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
-			motorOtherRight.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
-		}
+		motorLeft.set((-1 * driveSpeed) * AxisControlLeftY);
+		motorOtherLeft.set((-1 * driveSpeed) * AxisControlLeftY);
+		motorRight.set(driveSpeed * AxisControlRightY);
+		motorOtherRight.set(driveSpeed * AxisControlRightY);
 	}
 	
     Command autonomousCommand;
