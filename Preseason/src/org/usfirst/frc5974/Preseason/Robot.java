@@ -37,6 +37,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 public class Robot extends IterativeRobot {
 	
 	// Stolen code from last year, reformatting if possible?
+	//xBox mapping of controllers
 	double AxisControlLeftX;
 	double AxisControlLeftY;
 	double AxisControlRightX;
@@ -54,11 +55,106 @@ public class Robot extends IterativeRobot {
 	boolean BumperRight;
 	boolean JoyButtonLeft;
 	boolean JoyButtonRight;
+	//The IMU/10 degrees of freedom
+	double HeadingX;
+	double HeadingY;
+	double HeadingZ;
+	double AccelX;
+	double AccelY;
+	double AccelZ;
+	double RateX;
+	double RateY;
+	double RateZ;
+	double Altitude;
+	double Pitch;
+	double Yaw;
+	double Roll;
+	double Angle;
+	double AngleX;
+	double AngleY;
+	double AngleZ;
+	double distZ;
+	double Temp;
+
+	int processStep; //a step of a program
+	boolean toggleDriveMode = true; 
+	boolean toggleAscenderMode = true;
+	boolean fastMode = false;
+	double driveSpeed;
+	double velX = 0;
+	double velZ = 0;
+	double velY = 0;
+	double distX;
+	double distY;
+	double startPosition;
+	boolean XPressed = false;
+	boolean JoyRightToggle = false;
 	
 	void updateAll(){
 		updateController();
 		updateSensors();
 		updateMotors();
+	}
+	
+	public void updateAccel(){ //Updates the values for Acceleration
+		AccelX = Navigation.getAccelX();
+		AccelY = Navigation.getAccelY();
+		AccelZ = Navigation.getAccelZ();
+		SmartDashboard.putNumber("Accel X", AccelX);
+		SmartDashboard.putNumber("Accel Y", AccelY);
+		SmartDashboard.putNumber("Accel Z", AccelZ);
+	}
+	
+	public void updateRate(){ //Updates the rate at which one of these values are moving
+		RateX = Navigation.getRateX();
+		RateY = Navigation.getRateY();
+		RateZ = Navigation.getRateZ();
+		SmartDashboard.putNumber("Rate X", RateX);
+		SmartDashboard.putNumber("Rate Y", RateY);
+		SmartDashboard.putNumber("Rate Z", RateZ);
+	}
+	
+	public void updateRotations(){ //Updates the Yaw, Pitch, and Roll values
+		Pitch = Math.floor(Navigation.getPitch());
+		Yaw = Math.floor(Navigation.getYaw());
+		Roll = Math.floor(Navigation.getRoll());
+		SmartDashboard.putNumber("Pitch", Pitch);
+		SmartDashboard.putNumber("Yaw", Yaw);
+		SmartDashboard.putNumber("Roll", Roll);
+	}
+	
+	public void updateAngles(){ //Gets the angle of the gyroscope
+		AngleX = Navigation.getAngleX();
+		AngleY = Navigation.getAngleY();
+		AngleZ = Navigation.getAngleZ();
+		SmartDashboard.putNumber("Angle X", AngleX);
+		SmartDashboard.putNumber("Angle Y", AngleY);
+		SmartDashboard.putNumber("Angle Z", AngleZ);
+	}
+	
+	public void updateHeading(){ //Updates the "How far away are we from magnetic north?" values
+		HeadingX = Navigation.getMagX();
+		HeadingY = Navigation.getMagY();
+		HeadingZ = Navigation.getMagZ();
+		SmartDashboard.putNumber("Heading X", HeadingX);
+		SmartDashboard.putNumber("Heading Y", HeadingY);
+		SmartDashboard.putNumber("Heading Z", HeadingZ);
+	}
+	
+	public void updateSensors(){ //Updates the sensor values
+		updateHeading();
+		updateAccel();
+		updateRate();
+		updateRotations();
+		updateAngles();
+		updateWeather();
+	}
+	
+	public void UpdateMotors() {
+		motorLeft.set((-1 * driveSpeed) * AxisControlLeftY);
+		motorOtherLeft.set((-1 * driveSpeed) * AxisControlLeftY);
+		motorRight.set(driveSpeed * AxisControlRightY);
+		motorOtherRight.set(driveSpeed * AxisControlRightY);
 	}
 	
     Command autonomousCommand;
