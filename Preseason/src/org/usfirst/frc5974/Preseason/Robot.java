@@ -348,17 +348,17 @@ public class Robot extends IterativeRobot {
     	//drive left, but it's inverted so multiply by -1
     	AxisControlLeftY = 1.00;
     	AxisControlLeftX = 0.50;
-    	motorLeft.set(     (      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-		motorOtherLeft.set((      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-		motorRight.set((     -1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
-		motorOtherRight.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
+    	lFront.set(     (      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+		lBack.set((      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+		rFront.set((     -1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
+		rBack.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
     	//drive right
 		AxisControlLeftY = 1.00;
     	AxisControlLeftX = -0.50;
-    	motorLeft.set(     (      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-		motorOtherLeft.set((      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-		motorRight.set((     -1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
-		motorOtherRight.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
+    	lFront.set(     (      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+		lBack.set((      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+		rFront.set((     -1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
+		rBack.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
     	//a rumble when switching into autonomous would be nice
     	//so would a fastmode rumble
     	lFront.set(AxisControlLeftY);
