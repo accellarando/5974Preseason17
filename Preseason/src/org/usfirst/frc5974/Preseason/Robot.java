@@ -35,6 +35,14 @@ import edu.wpi.first.wpilibj.DigitalInput;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	Joystick masterRemote;
+	Timer Time = new Timer();
+	CameraServer camera;
+	RobotDrive robotdrive;
+	Spark lBack = new Spark(1);
+	Spark lFront = new Spark(3);
+	Spark rBack = new Spark(2);
+	Spark rFront = new Spark(0);
 	
 	
 	// Stolen code from last year, reformatting if possible?
@@ -95,9 +103,72 @@ public class Robot extends IterativeRobot {
 		updateController();
 		updateSensors();
 		updateMotors();
+		updateController();
 	}
 	
-	public void updateAccel(){ //Updates the values for Acceleration
+	public void updateController(){
+		//Got button values from control panel, mostly guessed on axes from RoboPong code
+		updateAxis();
+		updateTrigger();
+		updateButton();
+		updateBumper();
+		updateJoy();
+		deadZones();
+	}
+	
+	public void deadZones() { //The Axis are too accurate and thus need to be cut off
+		if(Math.abs(AxisControlLeftY) <= 0.1) {
+			AxisControlLeftY = 0;
+		}
+		if (Math.abs(AxisControlRightY) <= 0.1) {
+			AxisControlRightY = 0;
+		}
+		if(Math.abs(AxisControlLeftX) <= 0.1) {
+			AxisControlLeftX = 0;
+		}
+		if(Math.abs(AxisControlRightX) <= 0.1) {
+			AxisControlRightX = 0;
+		}
+		if(Math.abs(TriggerLeft) <= 0.1) {
+			TriggerLeft = 0;
+		}
+		if(Math.abs(TriggerRight) <= 0.1) {
+			TriggerRight = 0;
+		}
+	}
+	
+	public void updateAxis(){ //Updates the Axis on the joysticks
+		AxisControlLeftY = masterRemote.getRawAxis(1);
+		AxisControlRightY = masterRemote.getRawAxis(5);
+		AxisControlLeftX = masterRemote.getRawAxis(0);
+		AxisControlRightX = masterRemote.getRawAxis(4);
+	}
+	
+	public void updateTrigger(){ //Updates the Axis on the triggers
+		TriggerLeft = masterRemote.getRawAxis(2);
+		TriggerRight = masterRemote.getRawAxis(3);
+	}
+	
+	public void updateButton(){ //Updates button values
+		ButtonA = masterRemote.getRawButton(1);
+		ButtonB = masterRemote.getRawButton(2);
+		ButtonX = masterRemote.getRawButton(3);
+		ButtonY = masterRemote.getRawButton(4);
+		ButtonStart = masterRemote.getRawButton(8);
+		ButtonBack = masterRemote.getRawButton(7);
+	}
+	
+	public void updateBumper(){ //Updates the Bumper values
+		BumperLeft = masterRemote.getRawButton(5);
+		BumperRight = masterRemote.getRawButton(6);
+	}
+	
+	public void updateJoy(){ //Updates the joystick buttons
+		JoyButtonLeft = masterRemote.getRawButton(9);
+		JoyButtonRight = masterRemote.getRawButton(10);
+	}
+	
+	/*public void updateAccel(){ //Updates the values for Acceleration
 		AccelX = Navigation.getAccelX();
 		AccelY = Navigation.getAccelY();
 		AccelZ = Navigation.getAccelZ();
@@ -149,13 +220,13 @@ public class Robot extends IterativeRobot {
 		updateRotations();
 		updateAngles();
 		updateWeather();
-	}
+	}*/
 	
 	public void UpdateMotors() {
-		motorLeft.set((-1 * driveSpeed) * AxisControlLeftY);
-		motorOtherLeft.set((-1 * driveSpeed) * AxisControlLeftY);
-		motorRight.set(driveSpeed * AxisControlRightY);
-		motorOtherRight.set(driveSpeed * AxisControlRightY);
+		lFront.set((-1 * driveSpeed) * AxisControlLeftY); 
+		lBack.set((-1 * driveSpeed) * AxisControlLeftY); 
+		rFront.set(driveSpeed * AxisControlRightY); 
+		rBack.set(driveSpeed * AxisControlRightY); 
 	}
 	
     Command autonomousCommand;
