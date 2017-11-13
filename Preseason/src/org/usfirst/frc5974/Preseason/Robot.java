@@ -333,26 +333,18 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	updateAll();
     	//Drive speed switcher
-<<<<<<< HEAD
+    	
     	if (dPadl){
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
         	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
         	Timer.delay(1);
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
-=======
-<<<<<<< HEAD
-    	
-=======
-    	if (dPadl)
-    	{
->>>>>>> 072fb4b7b80adae3e53de16277b10783a7feb1e7
     		driveSpeed = 1;
     	}
     	if (dPadr){
     		driveSpeed = .5;
     	}
->>>>>>> ff0b4c2d7164e8fe617347ae5b990c87818e7b5d
     	//drive left, but it's inverted so multiply by -1
     	AxisControlLeftY = 1.00;
     	AxisControlLeftX = 0.50;
