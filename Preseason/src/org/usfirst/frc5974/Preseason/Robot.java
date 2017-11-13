@@ -169,13 +169,6 @@ public class Robot extends IterativeRobot {
 		}
 	}
 	
-	public void updateAxis(){ //Updates the Axis on the joysticks
-		AxisControlLeftY = masterRemote.getRawAxis(1);
-		AxisControlRightY = masterRemote.getRawAxis(5);
-		AxisControlLeftX = masterRemote.getRawAxis(0);
-		AxisControlRightX = masterRemote.getRawAxis(4);
-	}
-	
 	public void updateTrigger(){ //Updates the Axis on the triggers
 		TriggerLeft = masterRemote.getRawAxis(2);
 		TriggerRight = masterRemote.getRawAxis(3);
@@ -198,6 +191,13 @@ public class Robot extends IterativeRobot {
 	public void updateJoy(){ //Updates the joystick buttons
 		JoyButtonLeft = masterRemote.getRawButton(9);
 		JoyButtonRight = masterRemote.getRawButton(10);
+	}
+	
+	public void updateAxis(){ //Updates the Axis on the joysticks
+		AxisControlLeftY = masterRemote.getRawAxis(1);
+		AxisControlRightY = masterRemote.getRawAxis(5);
+		AxisControlLeftX = masterRemote.getRawAxis(0);
+		AxisControlRightX = masterRemote.getRawAxis(4);
 	}
 	
 	/*public void updateAccel(){ //Updates the values for Acceleration
@@ -324,8 +324,21 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	//Drive speed switcher
+    	
     	//drive left, but it's inverted so multiply by -1
+    	AxisControlLeftY = 1.00;
+    	AxisControlLeftX = 0.50;
+    	motorLeft.set(     (      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+		motorOtherLeft.set((      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+		motorRight.set((     -1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
+		motorOtherRight.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
     	//drive right
+		AxisControlLeftY = 1.00;
+    	AxisControlLeftX = -0.50;
+    	motorLeft.set(     (      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+		motorOtherLeft.set((      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+		motorRight.set((     -1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
+		motorOtherRight.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
     	//a rumble when switching into autonomous would be nice
     	//so would a fastmode rumble
     	lFront.set(AxisControlLeftY);
