@@ -323,7 +323,12 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	lFront.set(1);
+    	//Drive speed switcher
+    	//drive left, but it's inverted so multiply by -1
+    	//drive right
+    	//a rumble when switching into autonomous would be nice
+    	//so would a fastmode rumble
+    	lFront.set(AxisControlLeftY);
         Scheduler.getInstance().run();
         updateAll();
     }
