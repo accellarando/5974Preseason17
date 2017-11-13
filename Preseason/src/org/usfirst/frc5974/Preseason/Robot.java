@@ -137,7 +137,6 @@ public class Robot extends IterativeRobot {
 		
 		updateController();
 		//updateSensors();
-		updateMotors();
 	}
 	
 	public void updateController(){
@@ -256,12 +255,6 @@ public class Robot extends IterativeRobot {
 		updateWeather();
 	}*/
 	
-	public void updateMotors() {
-		lFront.set((-1 * driveSpeed) * AxisControlLeftY); 
-		lBack.set((-1 * driveSpeed) * AxisControlLeftY); 
-		rFront.set(driveSpeed * AxisControlRightY); 
-		rBack.set(driveSpeed * AxisControlRightY); 
-	}
 	
     Command autonomousCommand;
 
@@ -323,13 +316,17 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        
+        updateAll();
     }
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	lFront.set(1);
         Scheduler.getInstance().run();
+        updateAll();
     }
 
     /**
