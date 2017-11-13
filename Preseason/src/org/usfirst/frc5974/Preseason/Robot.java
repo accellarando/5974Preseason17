@@ -26,7 +26,8 @@ import org.usfirst.frc5974.Preseason.commands.*;
  * directory.
  */
 public class Robot extends IterativeRobot {
-<<<<<<< HEAD
+	
+	
 	// Stolen code from last year, reformatting if possible?
 	double AxisControlLeftX;
 	double AxisControlLeftY;
@@ -45,12 +46,13 @@ public class Robot extends IterativeRobot {
 	boolean BumperRight;
 	boolean JoyButtonLeft;
 	boolean JoyButtonRight;
-=======
-
 	
+	void updateAll(){
+		updateController();
+		updateSensors();
+		updateMotors();
+	}
 	
-	
->>>>>>> 49c6fd8876241b2b07c25ba3355c3b368be8344f
     Command autonomousCommand;
 
     public static OI oi;
