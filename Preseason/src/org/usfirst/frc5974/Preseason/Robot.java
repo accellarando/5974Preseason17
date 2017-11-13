@@ -325,6 +325,12 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
         
         updateAll();
+        
+        masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
+    	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
+    	Timer.delay(1);
+		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
+		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     }
 
     /**
@@ -351,7 +357,7 @@ public class Robot extends IterativeRobot {
 		rFront.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
 		rBack.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
     	//a rumble when switching into autonomous would be nice
-    	//so would a fastmode rumble
+		
     	lFront.set(AxisControlLeftY);
         Scheduler.getInstance().run();
         
