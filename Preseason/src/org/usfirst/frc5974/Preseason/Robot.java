@@ -17,6 +17,15 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc5974.Preseason.commands.*;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.analog.adis16448.frc.ADIS16448_IMU; //navigation
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -88,8 +97,6 @@ public class Robot extends IterativeRobot {
 	double startPosition;
 	boolean XPressed = false;
 	boolean JoyRightToggle = false;
-	
-	boolean toggleDriveMode = true;
 	
 	void updateAll(){
 		updateController();
@@ -163,20 +170,10 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public void UpdateMotors() {
-		if (toggleDriveMode) {
-			//Tank drive:
-			motorLeft.set((-1 * driveSpeed) * AxisControlLeftY);
-			motorOtherLeft.set((-1 * driveSpeed) * AxisControlLeftY);
-			motorRight.set(driveSpeed * AxisControlRightY);
-			motorOtherRight.set(driveSpeed * AxisControlRightY);
-		}
-		else {
-			//Arcade drive:
-			motorLeft.set(     (      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-			motorOtherLeft.set((      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-			motorRight.set((     -1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
-			motorOtherRight.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
-		}
+		motorLeft.set((-1 * driveSpeed) * AxisControlLeftY);
+		motorOtherLeft.set((-1 * driveSpeed) * AxisControlLeftY);
+		motorRight.set(driveSpeed * AxisControlRightY);
+		motorOtherRight.set(driveSpeed * AxisControlRightY);
 	}
 	
     Command autonomousCommand;
