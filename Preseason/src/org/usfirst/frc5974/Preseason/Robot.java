@@ -44,7 +44,6 @@ public class Robot extends IterativeRobot {
 	Spark rBack = new Spark(2);
 	Spark rFront = new Spark(0);
 	
-	// Stolen code from last year, reformatting if possible?
 	//xBox mapping of controllers
 	double AxisControlLeftX;
 	double AxisControlLeftY;
@@ -63,32 +62,70 @@ public class Robot extends IterativeRobot {
 	boolean BumperRight;
 	boolean JoyButtonLeft;
 	boolean JoyButtonRight;
+	boolean dPadd;
+	boolean dPadu;
+	boolean dPadl;
+	boolean dPadr;
 	//The IMU/10 degrees of freedom
-	double HeadingX;
-	double HeadingY;
-	double HeadingZ;
-	double AccelX;
-	double AccelY;
-	double AccelZ;
-	double RateX;
-	double RateY;
-	double RateZ;
-	double Altitude;
-	double Pitch;
-	double Yaw;
-	double Roll;
-	double Angle;
-	double AngleX;
-	double AngleY;
-	double AngleZ;
-	double distZ;
-	double Temp;
+	
+	/*
+	 * double HeadingX;
+	 * double HeadingY;
+	 * double HeadingZ;
+	 * 
+	 * Meant to measure the distance to magnetic north. With a gyroscope, apparently.
+	 * 
+	 * This is entirely useless, why code it in the first place? -JavaGreenhorn.
+	 */
+	
+	/*
+	 * double AccelX; 	Gyroscope value for X-Axis Rotation
+	 * double AccelY; 	Gyroscope value for Y-Axis Rotation
+	 * double AccelZ; 	Gyroscope value for Z-Axis Rotation
+	 * 
+	 * Meant to gauge acceleration, with a gyroscope we don't have.
+	 */
+	
+	/*
+	 * double RateX;
+	 * double RateY;
+	 * double RateZ;
+	 * 
+	 * Measures the R.P.M. of each axis, with a gyroscope we don't have.
+	 */
+	
+	/*
+	 * double Altitude; 
+	 * double Temp;
+	 * 
+	 * Meant to measure motor temp, roborio specific. Might not be needed.
+	 */
+	
+	/*
+	 *double Pitch; 	Gyroscope value for X-Axis Rotation
+	 *double Yaw;		Gyroscope value for Y-Axis Rotation
+	 *double Roll;		Gyroscope value for Z-Axis Rotation
+	 *
+	 * We don't have a gyroscope. If we install one, Aiming/stabilization, perhaps?
+	 */
+	
+	//double Angle; *Completely Unused.*
+	
+	/*
+	 * double AngleX;
+	 * double AngleY;
+	 * double AngleZ;
+	 * 
+	 * Meant to measure the rotation value of the gyroscope, which we don't have.
+	 */
+	
+	//double distZ; *Distance measurement, meant to be used without tele-op.*
+	
 
 	int processStep; //a step of a program
 	boolean toggleDriveMode = true; 
 	boolean toggleAscenderMode = true;
-	boolean fastMode = false;
-	double driveSpeed;
+	double driveSpeed = .5;
 	double velX = 0;
 	double velZ = 0;
 	double velY = 0;
@@ -99,10 +136,9 @@ public class Robot extends IterativeRobot {
 	boolean JoyRightToggle = false;
 	
 	void updateAll(){
+		
 		updateController();
-		updateSensors();
-		updateMotors();
-		updateController();
+		//updateSensors();
 	}
 	
 	public void updateController(){
@@ -113,6 +149,63 @@ public class Robot extends IterativeRobot {
 		updateBumper();
 		updateJoy();
 		deadZones();
+	}
+	
+	public void deadZones() { //The Axis are too accurate and thus need to be cut off
+		if(Math.abs(AxisControlLeftY) <= 0.1) {
+			AxisControlLeftY = 0;
+		}
+		if (Math.abs(AxisControlRightY) <= 0.1) {
+			AxisControlRightY = 0;
+		}
+		if(Math.abs(AxisControlLeftX) <= 0.1) {
+			AxisControlLeftX = 0;
+		}
+		if(Math.abs(AxisControlRightX) <= 0.1) {
+			AxisControlRightX = 0;
+		}
+		if(Math.abs(TriggerLeft) <= 0.1) {
+			TriggerLeft = 0;
+		}
+		if(Math.abs(TriggerRight) <= 0.1) {
+			TriggerRight = 0;
+		}
+	}
+	
+	public void updateTrigger(){ //Updates the Axis on the triggers
+		TriggerLeft = masterRemote.getRawAxis(2);
+		TriggerRight = masterRemote.getRawAxis(3);
+	}
+	
+	public void updateButton(){ //Updates button values
+		ButtonA = masterRemote.getRawButton(1);
+		ButtonB = masterRemote.getRawButton(2);
+		ButtonX = masterRemote.getRawButton(3);
+		ButtonY = masterRemote.getRawButton(4);
+		ButtonStart = masterRemote.getRawButton(8);
+		ButtonBack = masterRemote.getRawButton(7);
+		dPadd = masterRemote.getRawButton(13);
+		dPadu = masterRemote.getRawButton(12);
+		dPadl = masterRemote.getRawButton(14);
+		dPadr = masterRemote.getRawButton(15);
+		
+	}
+	
+	public void updateBumper(){ //Updates the Bumper values
+		BumperLeft = masterRemote.getRawButton(5);
+		BumperRight = masterRemote.getRawButton(6);
+	}
+	
+	public void updateJoy(){ //Updates the joystick buttons
+		JoyButtonLeft = masterRemote.getRawButton(9);
+		JoyButtonRight = masterRemote.getRawButton(10);
+	}
+	
+	public void updateAxis(){ //Updates the Axis on the joysticks
+		AxisControlLeftY = masterRemote.getRawAxis(1);
+		AxisControlRightY = masterRemote.getRawAxis(5);
+		AxisControlLeftX = masterRemote.getRawAxis(0);
+		AxisControlRightX = masterRemote.getRawAxis(4);
 	}
 	
 	/*public void updateAccel(){ //Updates the values for Acceleration
@@ -169,12 +262,6 @@ public class Robot extends IterativeRobot {
 		updateWeather();
 	}*/
 	
-	public void UpdateMotors() {
-		motorLeft.set((-1 * driveSpeed) * AxisControlLeftY); 
-		motorOtherLeft.set((-1 * driveSpeed) * AxisControlLeftY); 
-		motorRight.set(driveSpeed * AxisControlRightY); 
-		motorOtherRight.set(driveSpeed * AxisControlRightY); 
-	}
 	
     Command autonomousCommand;
 
@@ -236,13 +323,44 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        
+        updateAll();
+        
+        masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
+    	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
+    	Timer.delay(1);
+		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
+		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     }
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	updateAll();
+    	//Drive speed switcher
+    	
+    	if (dPadl){
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
+        	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
+        	Timer.delay(1);
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
+    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
+    		driveSpeed = 1;
+    	}
+    	if (dPadr){
+    		driveSpeed = .5;
+    	}
+    	//drive left, but it's inverted so multiply by -1
+    	lFront.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+		lBack.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+		rFront.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
+		rBack.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
+    	//a rumble when switching into autonomous would be nice
+		
+    	lFront.set(AxisControlLeftY);
         Scheduler.getInstance().run();
+        
     }
 
     /**
