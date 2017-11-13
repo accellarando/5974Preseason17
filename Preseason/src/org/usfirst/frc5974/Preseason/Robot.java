@@ -46,6 +46,8 @@ public class Robot extends IterativeRobot {
 	boolean JoyButtonLeft;
 	boolean JoyButtonRight;
 	
+	boolean toggleDriveMode = true;
+	
 	void updateAll(){
 		updateController();
 		updateSensors();
@@ -106,6 +108,22 @@ public class Robot extends IterativeRobot {
 		updateWeather();
 	}
 	
+	public void UpdateMotors() {
+		if (toggleDriveMode) {
+			//Tank drive:
+			motorLeft.set((-1 * driveSpeed) * AxisControlLeftY);
+			motorOtherLeft.set((-1 * driveSpeed) * AxisControlLeftY);
+			motorRight.set(driveSpeed * AxisControlRightY);
+			motorOtherRight.set(driveSpeed * AxisControlRightY);
+		}
+		else {
+			//Arcade drive:
+			motorLeft.set(     (      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+			motorOtherLeft.set((      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+			motorRight.set((     -1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
+			motorOtherRight.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
+		}
+	}
 	
     Command autonomousCommand;
 
