@@ -256,7 +256,7 @@ public class Robot extends IterativeRobot {
 		updateWeather();
 	}*/
 	
-	public void UpdateMotors() {
+	public void updateMotors() {
 		lFront.set((-1 * driveSpeed) * AxisControlLeftY); 
 		lBack.set((-1 * driveSpeed) * AxisControlLeftY); 
 		rFront.set(driveSpeed * AxisControlRightY); 
