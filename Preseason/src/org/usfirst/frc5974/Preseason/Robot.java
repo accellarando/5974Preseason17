@@ -62,6 +62,10 @@ public class Robot extends IterativeRobot {
 	boolean BumperRight;
 	boolean JoyButtonLeft;
 	boolean JoyButtonRight;
+	boolean dPadd;
+	boolean dPadu;
+	boolean dPadl;
+	boolean dPadr;
 	//The IMU/10 degrees of freedom
 	
 	/*
@@ -121,8 +125,7 @@ public class Robot extends IterativeRobot {
 	int processStep; //a step of a program
 	boolean toggleDriveMode = true; 
 	boolean toggleAscenderMode = true;
-	boolean fastMode = false;
-	double driveSpeed;
+	double driveSpeed = .5;
 	double velX = 0;
 	double velZ = 0;
 	double velY = 0;
@@ -181,6 +184,11 @@ public class Robot extends IterativeRobot {
 		ButtonY = masterRemote.getRawButton(4);
 		ButtonStart = masterRemote.getRawButton(8);
 		ButtonBack = masterRemote.getRawButton(7);
+		dPadd = masterRemote.getRawButton(13);
+		dPadu = masterRemote.getRawButton(12);
+		dPadl = masterRemote.getRawButton(14);
+		dPadr = masterRemote.getRawButton(15);
+		
 	}
 	
 	public void updateBumper(){ //Updates the Bumper values
@@ -324,7 +332,18 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	//Drive speed switcher
+<<<<<<< HEAD
     	
+=======
+    	if (dPadl)
+    	{
+    		driveSpeed = 1;
+    	}
+    	if (dPadr)
+    	{
+    		driveSpeed = .5;
+    	}
+>>>>>>> ff0b4c2d7164e8fe617347ae5b990c87818e7b5d
     	//drive left, but it's inverted so multiply by -1
     	AxisControlLeftY = 1.00;
     	AxisControlLeftX = 0.50;
