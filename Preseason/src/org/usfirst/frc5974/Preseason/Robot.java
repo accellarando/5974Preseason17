@@ -65,25 +65,60 @@ public class Robot extends IterativeRobot {
 	boolean JoyButtonLeft;
 	boolean JoyButtonRight;
 	//The IMU/10 degrees of freedom
-	double HeadingX;
-	double HeadingY;
-	double HeadingZ;
-	double AccelX;
-	double AccelY;
-	double AccelZ;
-	double RateX;
-	double RateY;
-	double RateZ;
-	double Altitude;
-	double Pitch;
-	double Yaw;
-	double Roll;
-	double Angle;
-	double AngleX;
-	double AngleY;
-	double AngleZ;
-	double distZ;
-	double Temp;
+	
+	/*
+	 * double HeadingX;
+	 * double HeadingY;
+	 * double HeadingZ;
+	 * 
+	 * Meant to measure the distance to magnetic north. With a gyroscope, apparently.
+	 * 
+	 * This is entirely useless, why code it in the first place? -JavaGreenhorn.
+	 */
+	
+	/*
+	 * double AccelX; 	Gyroscope value for X-Axis Rotation
+	 * double AccelY; 	Gyroscope value for Y-Axis Rotation
+	 * double AccelZ; 	Gyroscope value for Z-Axis Rotation
+	 * 
+	 * Meant to gauge acceleration, with a gyroscope we don't have.
+	 */
+	
+	/*
+	 * double RateX;
+	 * double RateY;
+	 * double RateZ;
+	 * 
+	 * Measures the R.P.M. of each axis, with a gyroscope we don't have.
+	 */
+	
+	/*
+	 * double Altitude; 
+	 * double Temp;
+	 * 
+	 * Meant to measure motor temp, roborio specific. Might not be needed.
+	 */
+	
+	/*
+	 *double Pitch; 	Gyroscope value for X-Axis Rotation
+	 *double Yaw;		Gyroscope value for Y-Axis Rotation
+	 *double Roll;		Gyroscope value for Z-Axis Rotation
+	 *
+	 * We don't have a gyroscope. If we install one, Aiming/stabilization, perhaps?
+	 */
+	
+	//double Angle; *Completely Unused.*
+	
+	/*
+	 * double AngleX;
+	 * double AngleY;
+	 * double AngleZ;
+	 * 
+	 * Meant to measure the rotation value of the gyroscope, which we don't have.
+	 */
+	
+	//double distZ; *Distance measurement, meant to be used without tele-op.*
+	
 
 	int processStep; //a step of a program
 	boolean toggleDriveMode = true; 
@@ -100,10 +135,10 @@ public class Robot extends IterativeRobot {
 	boolean JoyRightToggle = false;
 	
 	void updateAll(){
+		
 		updateController();
-		updateSensors();
+		//updateSensors();
 		updateMotors();
-		updateController();
 	}
 	
 	public void updateController(){
@@ -222,7 +257,7 @@ public class Robot extends IterativeRobot {
 		updateWeather();
 	}*/
 	
-	public void UpdateMotors() {
+	public void updateMotors() {
 		lFront.set((-1 * driveSpeed) * AxisControlLeftY); 
 		lBack.set((-1 * driveSpeed) * AxisControlLeftY); 
 		rFront.set(driveSpeed * AxisControlRightY); 
