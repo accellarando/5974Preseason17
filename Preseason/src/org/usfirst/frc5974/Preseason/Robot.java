@@ -35,6 +35,14 @@ import edu.wpi.first.wpilibj.DigitalInput;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	Joystick masterRemote;
+	Timer Time = new Timer();
+	CameraServer camera;
+	RobotDrive robotdrive;
+	Spark lBack = new Spark(1);
+	Spark lFront = new Spark(3);
+	Spark rBack = new Spark(2);
+	Spark rFront = new Spark(0);
 	
 	// Stolen code from last year, reformatting if possible?
 	//xBox mapping of controllers
@@ -94,6 +102,17 @@ public class Robot extends IterativeRobot {
 		updateController();
 		updateSensors();
 		updateMotors();
+		updateController();
+	}
+	
+	public void updateController(){
+		//Got button values from control panel, mostly guessed on axes from RoboPong code
+		updateAxis();
+		updateTrigger();
+		updateButton();
+		updateBumper();
+		updateJoy();
+		deadZones();
 	}
 	
 	/*public void updateAccel(){ //Updates the values for Acceleration
