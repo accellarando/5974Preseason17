@@ -346,18 +346,16 @@ public class Robot extends IterativeRobot {
     		driveSpeed = .5;
     	}
     	//drive left, but it's inverted so multiply by -1
-    	AxisControlLeftY = 1.00;
-    	AxisControlLeftX = 0.50;
-    	lFront.set(     (      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-		lBack.set((      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-		rFront.set((     -1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
+    	lFront.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+		lBack.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+		rFront.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
 		rBack.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
     	//drive right
 		AxisControlLeftY = 1.00;
     	AxisControlLeftX = -0.50;
-    	lFront.set(     (      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-		lBack.set((      (driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-		rFront.set((     -1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
+    	lFront.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+		lBack.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+		rFront.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
 		rBack.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
     	//a rumble when switching into autonomous would be nice
     	//so would a fastmode rumble
