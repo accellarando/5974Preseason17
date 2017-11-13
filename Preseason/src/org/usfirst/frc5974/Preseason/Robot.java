@@ -100,7 +100,7 @@ public class Robot extends IterativeRobot {
 	
 	void updateAll(){
 		updateController();
-		updateSensors();
+		//updateSensors();
 		updateMotors();
 		updateController();
 	}
