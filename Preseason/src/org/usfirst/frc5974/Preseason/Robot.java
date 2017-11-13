@@ -96,7 +96,7 @@ public class Robot extends IterativeRobot {
 		updateMotors();
 	}
 	
-	public void updateAccel(){ //Updates the values for Acceleration
+	/*public void updateAccel(){ //Updates the values for Acceleration
 		AccelX = Navigation.getAccelX();
 		AccelY = Navigation.getAccelY();
 		AccelZ = Navigation.getAccelZ();
@@ -148,7 +148,7 @@ public class Robot extends IterativeRobot {
 		updateRotations();
 		updateAngles();
 		updateWeather();
-	}
+	}*/
 	
 	public void UpdateMotors() {
 		motorLeft.set((-1 * driveSpeed) * AxisControlLeftY);
