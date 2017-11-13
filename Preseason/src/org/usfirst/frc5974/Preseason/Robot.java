@@ -170,10 +170,7 @@ public class Robot extends IterativeRobot {
 	}*/
 	
 	public void UpdateMotors() {
-		motorLeft.set((-1 * driveSpeed) * AxisControlLeftY);
-		motorOtherLeft.set((-1 * driveSpeed) * AxisControlLeftY);
-		motorRight.set(driveSpeed * AxisControlRightY);
-		motorOtherRight.set(driveSpeed * AxisControlRightY);
+		
 	}
 	
     Command autonomousCommand;
