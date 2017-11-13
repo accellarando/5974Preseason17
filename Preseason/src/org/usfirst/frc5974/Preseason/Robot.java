@@ -350,11 +350,6 @@ public class Robot extends IterativeRobot {
 		lBack.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
 		rFront.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
 		rBack.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
-    	//drive right
-    	lFront.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-		lBack.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-		rFront.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
-		rBack.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
     	//a rumble when switching into autonomous would be nice
     	//so would a fastmode rumble
     	lFront.set(AxisControlLeftY);
