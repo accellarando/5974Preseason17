@@ -36,6 +36,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
  */
 public class Robot extends IterativeRobot {
 	
+	
 	// Stolen code from last year, reformatting if possible?
 	//xBox mapping of controllers
 	double AxisControlLeftX;
