@@ -28,6 +28,7 @@ import org.usfirst.frc5974.Preseason.commands.*;
 public class Robot extends IterativeRobot {
 	
 	// Stolen code from last year, reformatting if possible?
+	//xBox mapping of controllers
 	double AxisControlLeftX;
 	double AxisControlLeftY;
 	double AxisControlRightX;
@@ -45,6 +46,40 @@ public class Robot extends IterativeRobot {
 	boolean BumperRight;
 	boolean JoyButtonLeft;
 	boolean JoyButtonRight;
+	//The IMU/10 degrees of freedom
+	double HeadingX;
+	double HeadingY;
+	double HeadingZ;
+	double AccelX;
+	double AccelY;
+	double AccelZ;
+	double RateX;
+	double RateY;
+	double RateZ;
+	double Altitude;
+	double Pitch;
+	double Yaw;
+	double Roll;
+	double Angle;
+	double AngleX;
+	double AngleY;
+	double AngleZ;
+	double distZ;
+	double Temp;
+
+	int processStep; //a step of a program
+	boolean toggleDriveMode = true; 
+	boolean toggleAscenderMode = true;
+	boolean fastMode = false;
+	double driveSpeed;
+	double velX = 0;
+	double velZ = 0;
+	double velY = 0;
+	double distX;
+	double distY;
+	double startPosition;
+	boolean XPressed = false;
+	boolean JoyRightToggle = false;
 	
 	boolean toggleDriveMode = true;
 	
