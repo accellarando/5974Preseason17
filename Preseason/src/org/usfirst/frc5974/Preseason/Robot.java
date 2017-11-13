@@ -134,6 +134,7 @@ public class Robot extends IterativeRobot {
 		if(Math.abs(TriggerRight) <= 0.1) {
 			TriggerRight = 0;
 		}
+	}
 	
 	public void updateAxis(){ //Updates the Axis on the joysticks
 		AxisControlLeftY = masterRemote.getRawAxis(1);
