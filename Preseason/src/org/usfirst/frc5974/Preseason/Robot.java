@@ -52,6 +52,61 @@ public class Robot extends IterativeRobot {
 		updateMotors();
 	}
 	
+	public void updateAccel(){ //Updates the values for Acceleration
+		AccelX = Navigation.getAccelX();
+		AccelY = Navigation.getAccelY();
+		AccelZ = Navigation.getAccelZ();
+		SmartDashboard.putNumber("Accel X", AccelX);
+		SmartDashboard.putNumber("Accel Y", AccelY);
+		SmartDashboard.putNumber("Accel Z", AccelZ);
+	}
+	
+	public void updateRate(){ //Updates the rate at which one of these values are moving
+		RateX = Navigation.getRateX();
+		RateY = Navigation.getRateY();
+		RateZ = Navigation.getRateZ();
+		SmartDashboard.putNumber("Rate X", RateX);
+		SmartDashboard.putNumber("Rate Y", RateY);
+		SmartDashboard.putNumber("Rate Z", RateZ);
+	}
+	
+	public void updateRotations(){ //Updates the Yaw, Pitch, and Roll values
+		Pitch = Math.floor(Navigation.getPitch());
+		Yaw = Math.floor(Navigation.getYaw());
+		Roll = Math.floor(Navigation.getRoll());
+		SmartDashboard.putNumber("Pitch", Pitch);
+		SmartDashboard.putNumber("Yaw", Yaw);
+		SmartDashboard.putNumber("Roll", Roll);
+	}
+	
+	public void updateAngles(){ //Gets the angle of the gyroscope
+		AngleX = Navigation.getAngleX();
+		AngleY = Navigation.getAngleY();
+		AngleZ = Navigation.getAngleZ();
+		SmartDashboard.putNumber("Angle X", AngleX);
+		SmartDashboard.putNumber("Angle Y", AngleY);
+		SmartDashboard.putNumber("Angle Z", AngleZ);
+	}
+	
+	public void updateHeading(){ //Updates the "How far away are we from magnetic north?" values
+		HeadingX = Navigation.getMagX();
+		HeadingY = Navigation.getMagY();
+		HeadingZ = Navigation.getMagZ();
+		SmartDashboard.putNumber("Heading X", HeadingX);
+		SmartDashboard.putNumber("Heading Y", HeadingY);
+		SmartDashboard.putNumber("Heading Z", HeadingZ);
+	}
+	
+	public void updateSensors(){ //Updates the sensor values
+		updateHeading();
+		updateAccel();
+		updateRate();
+		updateRotations();
+		updateAngles();
+		updateWeather();
+	}
+	
+	
     Command autonomousCommand;
 
     public static OI oi;
