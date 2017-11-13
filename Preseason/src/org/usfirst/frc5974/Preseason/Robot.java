@@ -331,13 +331,17 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	updateAll();
     	//Drive speed switcher
-    	if (dPadl)
-    	{
+    	if (dPadl){
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
+        	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
+        	Timer.delay(1);
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
+    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     		driveSpeed = 1;
     	}
-    	if (dPadr)
-    	{
+    	if (dPadr){
     		driveSpeed = .5;
     	}
     	//drive left, but it's inverted so multiply by -1
@@ -346,7 +350,7 @@ public class Robot extends IterativeRobot {
     	//so would a fastmode rumble
     	lFront.set(AxisControlLeftY);
         Scheduler.getInstance().run();
-        updateAll();
+        
     }
 
     /**
