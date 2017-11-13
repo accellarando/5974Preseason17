@@ -25,6 +25,7 @@ import org.usfirst.frc5974.Preseason.commands.*;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  * whoaaaaaahhhhh dud
+ * kewl double cheking
  */
 public class Robot extends IterativeRobot {
 
