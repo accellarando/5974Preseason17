@@ -87,6 +87,7 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public void updateBumper(){ //Updates the Bumper values
+		BumperLeft = masterRemote.getRawButton(5);
 		BumperRight = masterRemote.getRawButton(6);
 	}
 	
