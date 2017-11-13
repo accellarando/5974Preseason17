@@ -134,10 +134,10 @@ public class Robot extends IterativeRobot {
 	boolean JoyRightToggle = false;
 	
 	void updateAll(){
+		
 		updateController();
-		updateSensors();
+		//updateSensors();
 		updateMotors();
-		updateController();
 	}
 	
 	public void updateController(){
@@ -148,6 +148,58 @@ public class Robot extends IterativeRobot {
 		updateBumper();
 		updateJoy();
 		deadZones();
+	}
+	
+	public void deadZones() { //The Axis are too accurate and thus need to be cut off
+		if(Math.abs(AxisControlLeftY) <= 0.1) {
+			AxisControlLeftY = 0;
+		}
+		if (Math.abs(AxisControlRightY) <= 0.1) {
+			AxisControlRightY = 0;
+		}
+		if(Math.abs(AxisControlLeftX) <= 0.1) {
+			AxisControlLeftX = 0;
+		}
+		if(Math.abs(AxisControlRightX) <= 0.1) {
+			AxisControlRightX = 0;
+		}
+		if(Math.abs(TriggerLeft) <= 0.1) {
+			TriggerLeft = 0;
+		}
+		if(Math.abs(TriggerRight) <= 0.1) {
+			TriggerRight = 0;
+		}
+	}
+	
+	public void updateAxis(){ //Updates the Axis on the joysticks
+		AxisControlLeftY = masterRemote.getRawAxis(1);
+		AxisControlRightY = masterRemote.getRawAxis(5);
+		AxisControlLeftX = masterRemote.getRawAxis(0);
+		AxisControlRightX = masterRemote.getRawAxis(4);
+	}
+	
+	public void updateTrigger(){ //Updates the Axis on the triggers
+		TriggerLeft = masterRemote.getRawAxis(2);
+		TriggerRight = masterRemote.getRawAxis(3);
+	}
+	
+	public void updateButton(){ //Updates button values
+		ButtonA = masterRemote.getRawButton(1);
+		ButtonB = masterRemote.getRawButton(2);
+		ButtonX = masterRemote.getRawButton(3);
+		ButtonY = masterRemote.getRawButton(4);
+		ButtonStart = masterRemote.getRawButton(8);
+		ButtonBack = masterRemote.getRawButton(7);
+	}
+	
+	public void updateBumper(){ //Updates the Bumper values
+		BumperLeft = masterRemote.getRawButton(5);
+		BumperRight = masterRemote.getRawButton(6);
+	}
+	
+	public void updateJoy(){ //Updates the joystick buttons
+		JoyButtonLeft = masterRemote.getRawButton(9);
+		JoyButtonRight = masterRemote.getRawButton(10);
 	}
 	
 	/*public void updateAccel(){ //Updates the values for Acceleration
@@ -205,10 +257,10 @@ public class Robot extends IterativeRobot {
 	}*/
 	
 	public void UpdateMotors() {
-		motorLeft.set((-1 * driveSpeed) * AxisControlLeftY); 
-		motorOtherLeft.set((-1 * driveSpeed) * AxisControlLeftY); 
-		motorRight.set(driveSpeed * AxisControlRightY); 
-		motorOtherRight.set(driveSpeed * AxisControlRightY); 
+		lFront.set((-1 * driveSpeed) * AxisControlLeftY); 
+		lBack.set((-1 * driveSpeed) * AxisControlLeftY); 
+		rFront.set(driveSpeed * AxisControlRightY); 
+		rBack.set(driveSpeed * AxisControlRightY); 
 	}
 	
     Command autonomousCommand;
