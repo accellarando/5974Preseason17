@@ -99,10 +99,10 @@ public class Robot extends IterativeRobot {
 	boolean JoyRightToggle = false;
 	
 	void updateAll(){
+		
 		updateController();
 		//updateSensors();
 		updateMotors();
-		updateController();
 	}
 	
 	public void updateController(){
