@@ -48,53 +48,7 @@ public class Robot extends IterativeRobot {
 =======
 
 	
-	public void updateThings() { //The next few things all have to do with updating values
-		updateController();
-		updateIMU();
-		SmartDashboard.putBoolean("Upper Limit Switch", armStopper1.get());
-		SmartDashboard.putBoolean("Lower Limit Switch", armStopper2.get());
-	}
 	
-	public void updateController(){
-		//Got button values from control panel, mostly guessed on axes from RoboPong code
-		updateAxis();
-		updateTrigger();
-		updateButton();
-		updateBumper();
-		updateJoy();
-		deadZones();
-	}
-	
-	public void updateAxis(){ //Updates the Axis on the joysticks
-		AxisControlLeftY = masterRemote.getRawAxis(1);
-		AxisControlRightY = masterRemote.getRawAxis(5);
-		AxisControlLeftX = masterRemote.getRawAxis(0);
-		AxisControlRightX = masterRemote.getRawAxis(4);
-	}
-	
-	public void updateTrigger(){ //Updates the Axis on the triggers
-		TriggerLeft = masterRemote.getRawAxis(2);
-		TriggerRight = masterRemote.getRawAxis(3);
-	}
-	
-	public void updateButton(){ //Updates button values
-		ButtonA = masterRemote.getRawButton(1);
-		ButtonB = masterRemote.getRawButton(2);
-		ButtonX = masterRemote.getRawButton(3);
-		ButtonY = masterRemote.getRawButton(4);
-		ButtonStart = masterRemote.getRawButton(8);
-		ButtonBack = masterRemote.getRawButton(7);
-	}
-	
-	public void updateBumper(){ //Updates the Bumper values
-		BumperLeft = masterRemote.getRawButton(5);
-		BumperRight = masterRemote.getRawButton(6);
-	}
-	
-	public void updateJoy(){ //Updates the joystick buttons
-		JoyButtonLeft = masterRemote.getRawButton(9);
-		JoyButtonRight = masterRemote.getRawButton(10);
-	}
 	
 >>>>>>> 49c6fd8876241b2b07c25ba3355c3b368be8344f
     Command autonomousCommand;
