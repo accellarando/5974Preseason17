@@ -343,7 +343,7 @@ public class Robot extends IterativeRobot {
     	updateAll();
     	//Drive speed switcher
     	
-    	if (dPadl){
+    	if (ButtonX){
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
         	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
         	Timer.delay(1);
@@ -351,15 +351,15 @@ public class Robot extends IterativeRobot {
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     		driveSpeed = 1;
     	}
-    	if (dPadr){
+    	if (ButtonB){
     		driveSpeed = .5;
     	}
     	
     	//drive left, but it's inverted so multiply by -1
-    	lFront.set((driveSpeed) * (AxisControlLeftY));
-		lBack.set((driveSpeed) * (AxisControlLeftY));
-		rFront.set((-1 * driveSpeed) * (AxisControlRightY));
-		rBack.set((-1 * driveSpeed) * (AxisControlRightY));
+    	lFront.set((driveSpeed) * (AxisControlRightY));
+		lBack.set((driveSpeed) * (AxisControlRightY));
+		rFront.set((-1 * driveSpeed) * (AxisControlLeftY));
+		rBack.set((-1 * driveSpeed) * (AxisControlLeftY));
 		
     	lFront.set(AxisControlLeftY);
     	
