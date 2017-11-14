@@ -423,11 +423,10 @@ public class Robot extends IterativeRobot {
     		//System.out.println(i2c.read(8, 1, receive));
     		i2c.transaction(receive, 8, receive, 1);
     		System.out.println(receive);
-    	}  }  	
+    	}  
     /*
      * ERROR  1  ERROR Unhandled exception: java.nio.BufferUnderflowException at [java.nio.DirectByteBuffer.get(DirectByteBuffer.java:271), java.nio.ByteBuffer.get(ByteBuffer.java:715), edu.wpi.first.wpilibj.I2C.transaction(I2C.java:84), org.usfirst.frc5974.Preseason.Robot.teleopPeriodic(Robot.java:424), edu.wpi.first.wpilibj.IterativeRobot.startCompetition(IterativeRobot.java:130), edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:247)]  edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:249)
      */
-
         
     
 
