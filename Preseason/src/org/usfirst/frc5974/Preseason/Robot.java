@@ -39,10 +39,10 @@ public class Robot extends IterativeRobot {
 	Timer Time = new Timer();
 	CameraServer camera;
 	RobotDrive robotdrive;
-	Spark lBack = new Spark(1);
-	Spark lFront = new Spark(3);
-	Spark rBack = new Spark(2);
-	Spark rFront = new Spark(0);
+	Spark rBack = new Spark(3);
+	Spark rFront = new Spark(1);
+	Spark lBack = new Spark(0);
+	Spark lFront = new Spark(2);
 	Spark clamp = new Spark(4);
 	
 	// Stolen code from last year, reformatting if possible?
