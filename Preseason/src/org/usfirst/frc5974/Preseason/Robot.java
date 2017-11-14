@@ -347,15 +347,26 @@ public class Robot extends IterativeRobot {
     	if (ButtonB && !fast){
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
         	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
-        	Timer.delay(1);
+        	Timer.delay(0.25);
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     		fast = true;
+    	}
+    	
+    	else if (ButtonB && fast){
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
+        	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
+        	Timer.delay(0.25);
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
+    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
+    		fast = false;
+    	}
+    	
+    	if(fast){
     		driveSpeed = 1;
     	}
     	
-    	if (ButtonB && fast){
-    		fast = false;
+    	else if(fast == false){
     		driveSpeed = 0.5;
     	}
     	
