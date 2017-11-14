@@ -51,6 +51,7 @@ public class Robot extends IterativeRobot {
 	double AxisControlLeftY = 0;
 	double AxisControlRightX = 0;
 	double AxisControlRightY = 0;
+	boolean fast = false;
 	double TriggerLeft;
 	double TriggerRight;
 	boolean ButtonA;
@@ -154,22 +155,22 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public void deadZones() { //The Axis are too accurate and thus need to be cut off
-		if(Math.abs(AxisControlLeftY) <= 0.1) {
+		if(Math.abs(AxisControlLeftY) <= 0.15) {
 			AxisControlLeftY = 0;
 		}
-		if (Math.abs(AxisControlRightY) <= 0.1) {
+		if (Math.abs(AxisControlRightY) <= 0.15) {
 			AxisControlRightY = 0;
 		}
-		if(Math.abs(AxisControlLeftX) <= 0.1) {
+		if(Math.abs(AxisControlLeftX) <= 0.15) {
 			AxisControlLeftX = 0;
 		}
-		if(Math.abs(AxisControlRightX) <= 0.1) {
+		if(Math.abs(AxisControlRightX) <= 0.15) {
 			AxisControlRightX = 0;
 		}
-		if(Math.abs(TriggerLeft) <= 0.1) {
+		if(Math.abs(TriggerLeft) <= 0.15) {
 			TriggerLeft = 0;
 		}
-		if(Math.abs(TriggerRight) <= 0.1) {
+		if(Math.abs(TriggerRight) <= 0.15) {
 			TriggerRight = 0;
 		}
 	}
@@ -343,15 +344,23 @@ public class Robot extends IterativeRobot {
     	updateAll();
     	//Drive speed switcher
     	
-    	if (ButtonX){
+    	if (ButtonX && !fast){
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
         	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
         	Timer.delay(1);
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
+    		fast = true;
     		driveSpeed = 1;
     	}
-    	if (ButtonB){
+    	else if (ButtonX && fast){
+    		fast = false;
+    		driveSpeed = .5;
+    	}
+    	if (fast){
+    		driveSpeed = 1;
+    	}
+    	else if (!fast){
     		driveSpeed = .5;
     	}
     	
