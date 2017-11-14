@@ -331,7 +331,8 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	updateAll();
-    	int twitchTurn (int turnTo) { //possible bool? Might be constantly used, may not.
+    	
+    	void twitchTurn(int turnTo) { //possible bool? Might be constantly used, may not.
     		if (turnTo < 0) {
     			lFront.set(-1);
             	lBack.set(-1);
@@ -389,14 +390,14 @@ public class Robot extends IterativeRobot {
     	clamp.set(TriggerLeft);
     	
     	if (ButtonY) {
-    		String WriteString = "underflow";
+    		String WriteString = "underflow?";
     		char[] CharArray = WriteString.toCharArray();
     		byte[] WriteData = new byte[CharArray.length];
     		for (int i = 0; i < CharArray.length; i++) {
     			WriteData[i] = (byte) CharArray[i];
     		}
     		i2c.transaction(WriteData, WriteData.length, null, 0);
-    	}
+    	}    	
         Scheduler.getInstance().run();
         
     }
