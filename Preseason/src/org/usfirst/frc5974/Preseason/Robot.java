@@ -39,10 +39,10 @@ public class Robot extends IterativeRobot {
 	Timer Time = new Timer();
 	CameraServer camera;
 	RobotDrive robotdrive;
-	Spark lBack = new Spark(1);
-	Spark lFront = new Spark(3);
-	Spark rBack = new Spark(2);
-	Spark rFront = new Spark(0);
+	Spark rBack = new Spark(3);
+	Spark rFront = new Spark(1);
+	Spark lBack = new Spark(0);
+	Spark lFront = new Spark(2);
 	Spark clamp = new Spark(4);
 	
 	// Stolen code from last year, reformatting if possible?
@@ -343,7 +343,7 @@ public class Robot extends IterativeRobot {
     	updateAll();
     	//Drive speed switcher
     	
-    	if (dPadl){
+    	if (ButtonX){
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
         	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
         	Timer.delay(1);
@@ -351,17 +351,24 @@ public class Robot extends IterativeRobot {
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     		driveSpeed = 1;
     	}
-    	if (dPadr){
+    	if (ButtonB){
     		driveSpeed = .5;
     	}
     	
     	//drive left, but it's inverted so multiply by -1
+<<<<<<< HEAD
     	lFront.set((driveSpeed) * (AxisControlLeftY));
 		lBack.set((driveSpeed) * (AxisControlLeftY));
 		rFront.set((-1 * driveSpeed) * (AxisControlRightY));
 		rBack.set((-1 * driveSpeed) * (AxisControlRightY));
+=======
+    	lFront.set((-1 * driveSpeed) * (AxisControlRightY));
+		lBack.set((-1 * driveSpeed) * (AxisControlRightY));
+		rFront.set((driveSpeed) * (AxisControlLeftY));
+		rBack.set((driveSpeed) * (AxisControlLeftY));
 		
     	lFront.set(AxisControlLeftY);
+>>>>>>> 62fbd921ac8e26f0b881c931e16aa131f8736d1c
     	
     	clamp.set(TriggerLeft);
     	
