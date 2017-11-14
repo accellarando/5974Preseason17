@@ -332,7 +332,19 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	updateAll();
     	
-
+    	//Bumper Quick Turns
+        boolean lTurn = false;
+    	if(BumperLeft && lTurn==false) {lTurn = true;}
+        
+        if(lTurn==true) {
+        	lFront.set(1);
+        	lBack.set(1);
+        	rFront.set(-1);
+        	rBack.set(-1);
+        	Timer.delay(0.3);
+        	lTurn=false;
+        }
+    	
     	//Drive speed switcher
     	if (ButtonB && !fast){
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
@@ -379,7 +391,6 @@ public class Robot extends IterativeRobot {
     		}
     		i2c.transaction(WriteData, WriteData.length, null, 0);
     	}
-    	
         Scheduler.getInstance().run();
         
     }
@@ -389,39 +400,6 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
-    
-    
-    
-    //Bumper Quick Turns
-    
-    boolean lTurn = false;
-    
-    if(BumperLeft && lTurn==false) {lTurn = true;}
-    
-    if(lTurn==true) {
-
-    	lFront.set(1);
-    	lBack.set(1);
-    	rFront.set(-1);
-    	rBack.set(-1);
-    	Timer.delay(0.3);
-    	lTurn=false;
     	
-    }	
-    
-boolean rTurn = false;
-    
-    if(BumperRight && rTurn==false) {rTurn = true;}
-    
-    if(rTurn==true) {
-
-    	lFront.set(-1);
-    	lBack.set(-1);
-    	rFront.set(1);
-    	rBack.set(1);
-    	Timer.delay(0.3);
-    	rTurn=false;
-    	
-    }	
-  
-}}
+    }	 
+}
