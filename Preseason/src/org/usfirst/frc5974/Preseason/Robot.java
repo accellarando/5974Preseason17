@@ -343,7 +343,7 @@ public class Robot extends IterativeRobot {
     	updateAll();
     	//Drive speed switcher
     	
-    	if (dPadl){
+    	if (ButtonX){
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
         	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
         	Timer.delay(1);
@@ -351,7 +351,7 @@ public class Robot extends IterativeRobot {
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     		driveSpeed = 1;
     	}
-    	if (dPadr){
+    	if (ButtonB){
     		driveSpeed = .5;
     	}
     	
