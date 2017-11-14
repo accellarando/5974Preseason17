@@ -353,12 +353,12 @@ public class Robot extends IterativeRobot {
     	if (dPadr){
     		driveSpeed = .5;
     	}
+    	
     	//drive left, but it's inverted so multiply by -1
-    	lFront.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-		lBack.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-		rFront.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
-		rBack.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
-    	//a rumble when switching into autonomous would be nice
+    	lFront.set((driveSpeed) * (AxisControlLeftY - AxisControlLeftX));
+		lBack.set((driveSpeed) * (AxisControlLeftY - AxisControlLeftX));
+		rFront.set((-1 * driveSpeed) * (AxisControlRightY + AxisControlRightX));
+		rBack.set((-1 * driveSpeed) * (AxisControlRightY + AxisControlRightX));
 		
     	lFront.set(AxisControlLeftY);
         Scheduler.getInstance().run();
