@@ -353,6 +353,28 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	updateAll();
     	
+<<<<<<< HEAD
+=======
+    	void twitchTurn(int turnTo) { //possible bool? Might be constantly used, may not.
+    		if (turnTo < 0) {
+    			lFront.set(-1);
+            	lBack.set(-1);
+            	rFront.set(-1);
+            	rBack.set(-1);
+    		}
+    		if (turnTo > 1) {
+    			lFront.set(1);
+            	lBack.set(1);
+            	rFront.set(1);
+            	rBack.set(1);
+    		}
+    		Timer.delay(0.3);
+    		lFront.set(0);
+        	lBack.set(0);
+        	rFront.set(0);
+        	rBack.set(0);
+    	}
+>>>>>>> d094cd81961d228e211fa5d0e31621f89cb7eba0
     	
     	//Drive speed switcher
     	if (ButtonB && !fast){
@@ -392,14 +414,14 @@ public class Robot extends IterativeRobot {
     	clamp.set(TriggerLeft);
     	
     	if (ButtonY) {
-    		String WriteString = "underflow";
+    		String WriteString = "underflow?";
     		char[] CharArray = WriteString.toCharArray();
     		byte[] WriteData = new byte[CharArray.length];
     		for (int i = 0; i < CharArray.length; i++) {
     			WriteData[i] = (byte) CharArray[i];
     		}
     		i2c.transaction(WriteData, WriteData.length, null, 0);
-    	}
+    	}    	
         Scheduler.getInstance().run();
         
     }
