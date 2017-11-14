@@ -44,11 +44,7 @@ public class Robot extends IterativeRobot {
 	Spark rBack = new Spark(2);
 	Spark rFront = new Spark(0);
 	
-<<<<<<< HEAD
-	
 	// Stolen code from last year, reformatting if possible?
-=======
->>>>>>> fbb769cff5d85b67a94e1a84bcfc14d3342ce10a
 	//xBox mapping of controllers
 	double AxisControlLeftX;
 	double AxisControlLeftY;
@@ -361,7 +357,6 @@ public class Robot extends IterativeRobot {
 		lBack.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
 		rFront.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
 		rBack.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
-    	//a rumble when switching into autonomous would be nice
 		
     	lFront.set(AxisControlLeftY);
         Scheduler.getInstance().run();
