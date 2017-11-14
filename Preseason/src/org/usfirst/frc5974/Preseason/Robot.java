@@ -363,19 +363,11 @@ public class Robot extends IterativeRobot {
     	}
     	
     	//drive left, but it's inverted so multiply by -1
-    	lFront.set((driveSpeed) * (AxisControlLeftY));
-		lBack.set((driveSpeed) * (AxisControlLeftY));
-		rFront.set((-1 * driveSpeed) * (AxisControlRightY));
-		rBack.set((-1 * driveSpeed) * (AxisControlRightY));
-<<<<<<< HEAD
-=======
-    	lFront.set((-1 * driveSpeed) * (AxisControlRightY));
-		lBack.set((-1 * driveSpeed) * (AxisControlRightY));
-		rFront.set((driveSpeed) * (AxisControlLeftY));
-		rBack.set((driveSpeed) * (AxisControlLeftY));
-		
-    	lFront.set(AxisControlLeftY);
->>>>>>> 2a5e0c84b982a63a0962d85e313bf26fd381d648
+
+    	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
+		lBack.set((-1*driveSpeed) * (AxisControlLeftY));
+		rFront.set(driveSpeed * AxisControlRightY);
+		rBack.set(driveSpeed * AxisControlRightY);
     	
     	clamp.set(TriggerLeft);
     	
