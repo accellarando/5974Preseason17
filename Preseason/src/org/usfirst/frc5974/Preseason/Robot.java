@@ -353,20 +353,29 @@ public class Robot extends IterativeRobot {
     	if (ButtonB && !fast){
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
         	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
-        	Timer.delay(1);
+        	Timer.delay(0.25);
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     		fast = true;
     	}
+    	
     	else if (ButtonB && fast){
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
+        	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
+        	Timer.delay(0.25);
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
+    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     		fast = false;
     	}
-    	if (fast){
+    	
+    	if(fast){
     		driveSpeed = 1;
     	}
-    	else if (!fast){
-    		driveSpeed = .5;
+    	
+    	else if(fast == false){
+    		driveSpeed = 0.5;
     	}
+    	
     	
     	//drive left, but it's inverted so multiply by -1
 
@@ -387,5 +396,35 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
-    }
-}
+    
+    
+    
+    //Bumper Quick Turns
+    
+    boolean lTurn = false;
+    
+    if(BumperLeft && lTurn==false) {lTurn = true;}
+    
+    if(lTurn==true) {
+
+    	lFront.set(1);
+    	lBack.set(1);
+    	rFront.set(-1);
+    	rBack.set(-1);
+    	Timer.delay(0.3);
+    	lTurn=false;
+    	
+    }	
+    	
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}}
