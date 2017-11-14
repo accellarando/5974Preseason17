@@ -170,10 +170,10 @@ public class Robot extends IterativeRobot {
 		ButtonY = masterRemote.getRawButton(4);
 		ButtonStart = masterRemote.getRawButton(8);
 		ButtonBack = masterRemote.getRawButton(7);
-		dPadd = masterRemote.getRawButton(13);
-		dPadu = masterRemote.getRawButton(12);
-		dPadl = masterRemote.getRawButton(14);
-		dPadr = masterRemote.getRawButton(15);
+//		dPadd = masterRemote.getRawButton(13);
+//		dPadu = masterRemote.getRawButton(12);
+//		dPadl = masterRemote.getRawButton(14);
+//		dPadr = masterRemote.getRawButton(15);
 		
 	}
 	
@@ -377,9 +377,6 @@ public class Robot extends IterativeRobot {
     	else if(fast == false){
     		driveSpeed = 0.5;
     	}
-    	
-    	
-    	//drive left, but it's inverted so multiply by -1
 
     	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
 		lBack.set((-1*driveSpeed) * (AxisControlLeftY));
@@ -397,6 +394,9 @@ public class Robot extends IterativeRobot {
     		}
     		i2c.transaction(WriteData, WriteData.length, null, 0);
     	}
+    	//byte[] receive = new byte[8];
+    	//Console.log(i2c.read(8, 1, receive));
+    	System.out.println("Test output");
         Scheduler.getInstance().run();
         
     }
