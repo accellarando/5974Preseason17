@@ -351,16 +351,14 @@ public class Robot extends IterativeRobot {
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     		fast = true;
-    	}
-    	else if (ButtonB && fast){
-    		fast = false;
-    	}
-    	if (fast){
     		driveSpeed = 1;
     	}
-    	else if (!fast){
-    		driveSpeed = .5;
+    	
+    	if (ButtonB && fast){
+    		fast = false;
+    		driveSpeed = 0.5;
     	}
+    	
     	
     	//drive left, but it's inverted so multiply by -1
 
