@@ -336,6 +336,8 @@ public class Robot extends IterativeRobot {
      */
     
     public void twitchTurn(int turnTo) { 
+    	//okay so what is the point of this??
+    	//like if we're using it for something we can keep it but I don't see its purpose tbh
 		if (turnTo < 0) {
 			lFront.set(-1);
         	lBack.set(-1);
