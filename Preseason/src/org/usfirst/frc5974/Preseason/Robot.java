@@ -352,7 +352,7 @@ public class Robot extends IterativeRobot {
     
     public void teleopPeriodic() {
     	updateAll();
-    	twitchTurn(0);
+    	//twitchTurn(0);
     	
     	//Drive speed switcher
     	if (ButtonB && !fast){
@@ -398,10 +398,10 @@ public class Robot extends IterativeRobot {
     		i2c.transaction(WriteData, WriteData.length, null, 0);
 
     	}
-    	//byte[] receive = new byte[8];
-    	//Console.log(i2c.read(8, 1, receive));
-    	System.out.println("Test output");
-    	}    	
+    	byte[] receive = new byte[8];
+    	if(ButtonX && ButtonA){
+    		System.out.println(i2c.read(8, 1, receive));
+    	}    	}
 
         
     
