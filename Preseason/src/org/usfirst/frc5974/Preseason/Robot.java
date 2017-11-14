@@ -38,6 +38,8 @@ public class Robot extends IterativeRobot {
 	boolean fast = false;
 	double TriggerLeft;
 	double TriggerRight;
+	byte triggerLeft = 0;
+	byte triggerRight = 0;
 	boolean ButtonA;
 	boolean APressed;
 	boolean ButtonB;
@@ -161,6 +163,9 @@ public class Robot extends IterativeRobot {
 	public void updateTrigger(){ //Updates the Axis on the triggers
 		TriggerLeft = masterRemote.getRawAxis(2);
 		TriggerRight = masterRemote.getRawAxis(3);
+		
+		triggerLeft = (byte) (TriggerLeft*255);
+		triggerRight = (byte) (TriggerRight*255);
 	}
 	
 	public void updateButton(){ //Updates button values
@@ -398,8 +403,21 @@ public class Robot extends IterativeRobot {
     		for (int i = 0; i < CharArray.length; i++) {
     			WriteData[i] = (byte) CharArray[i];
     		}
+    		
     		i2c.transaction(WriteData, WriteData.length, null, 0);
-    	}    	
+    	
+    	}  
+    	if (TriggerLeft>0) {
+    		byte[] triggerSend = {'L',triggerLeft};
+    		i2c.transaction(triggerSend, 2, null, 0);
+    	
+    	}
+    	if (TriggerRight>0) {
+    		byte[] triggerSend = {'R',triggerRight};
+    		i2c.transaction(triggerSend, 2, null, 0);
+    	
+    	}
+    	
         Scheduler.getInstance().run();
         
     }
