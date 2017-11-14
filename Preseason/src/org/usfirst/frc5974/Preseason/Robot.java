@@ -409,5 +409,20 @@ public class Robot extends IterativeRobot {
     
     	
     }	
+    
+boolean rTurn = false;
+    
+    if(BumperRight && rTurn==false) {rTurn = true;}
+    
+    if(rTurn==true) {
+
+    	lFront.set(-1);
+    	lBack.set(-1);
+    	rFront.set(1);
+    	rBack.set(1);
+    	Timer.delay(0.3);
+    	rTurn=false;
+    	
+    }	
   
 }}
