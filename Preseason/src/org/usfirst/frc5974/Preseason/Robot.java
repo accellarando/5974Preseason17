@@ -38,6 +38,8 @@ public class Robot extends IterativeRobot {
 	boolean fast = false;
 	double TriggerLeft;
 	double TriggerRight;
+	byte triggerLeft = 0;
+	byte triggerRight = 0;
 	boolean ButtonA;
 	boolean APressed;
 	boolean ButtonB;
@@ -161,6 +163,9 @@ public class Robot extends IterativeRobot {
 	public void updateTrigger(){ //Updates the Axis on the triggers
 		TriggerLeft = masterRemote.getRawAxis(2);
 		TriggerRight = masterRemote.getRawAxis(3);
+		
+		triggerLeft = (byte) (TriggerLeft*255);
+		triggerRight = (byte) (TriggerRight*255);
 	}
 	
 	public void updateButton(){ //Updates button values
@@ -170,10 +175,10 @@ public class Robot extends IterativeRobot {
 		ButtonY = masterRemote.getRawButton(4);
 		ButtonStart = masterRemote.getRawButton(8);
 		ButtonBack = masterRemote.getRawButton(7);
-		dPadd = masterRemote.getRawButton(13);
-		dPadu = masterRemote.getRawButton(12);
-		dPadl = masterRemote.getRawButton(14);
-		dPadr = masterRemote.getRawButton(15);
+//		dPadd = masterRemote.getRawButton(13);
+//		dPadu = masterRemote.getRawButton(12);
+//		dPadl = masterRemote.getRawButton(14);
+//		dPadr = masterRemote.getRawButton(15);
 		
 	}
 	
@@ -329,33 +334,30 @@ public class Robot extends IterativeRobot {
     /**
      * This function is called periodically during operator control
      */
-    public void teleopPeriodic() {
-    	updateAll();
-    	
-    	//Bumper Quick Turns
-    	if(BumperLeft){
-        	lFront.set(-1);
+    
+    public void twitchTurn(int turnTo) { 
+		if (turnTo < 0) {
+			lFront.set(-1);
         	lBack.set(-1);
         	rFront.set(-1);
         	rBack.set(-1);
-        	Timer.delay(0.3);
-        	lFront.set(0);
-        	lBack.set(0);
-        	rFront.set(0);
-        	rBack.set(0);
-    	}
-        
-        if(BumperRight){
-        	lFront.set(1);
+		}
+		if (turnTo > 1) {
+			lFront.set(1);
         	lBack.set(1);
         	rFront.set(1);
         	rBack.set(1);
-        	Timer.delay(0.3);
-        	lFront.set(0);
-        	lBack.set(0);
-        	rFront.set(0);
-        	rBack.set(0);
-        }
+		}
+		Timer.delay(0.3);
+		lFront.set(0);
+    	lBack.set(0);
+    	rFront.set(0);
+    	rBack.set(0);
+	}
+    
+    public void teleopPeriodic() {
+    	updateAll();
+    	//twitchTurn(0);
     	
     	//Drive speed switcher
     	if (ButtonB && !fast){
@@ -383,9 +385,6 @@ public class Robot extends IterativeRobot {
     	else if(fast == false){
     		driveSpeed = 0.5;
     	}
-    	
-    	
-    	//drive left, but it's inverted so multiply by -1
 
     	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
 		lBack.set((-1*driveSpeed) * (AxisControlLeftY));
@@ -395,17 +394,40 @@ public class Robot extends IterativeRobot {
     	clamp.set(TriggerLeft);
     	
     	if (ButtonY) {
-    		String WriteString = "go";
+    		String WriteString = "underflow?";
     		char[] CharArray = WriteString.toCharArray();
     		byte[] WriteData = new byte[CharArray.length];
     		for (int i = 0; i < CharArray.length; i++) {
     			WriteData[i] = (byte) CharArray[i];
     		}
+    		
     		i2c.transaction(WriteData, WriteData.length, null, 0);
+<<<<<<< HEAD
+    	
+    	}  
+    	if (TriggerLeft>0) {
+    		byte[] triggerSend = {'L',triggerLeft};
+    		i2c.transaction(triggerSend, 2, null, 0);
+    	
     	}
+    	if (TriggerRight>0) {
+    		byte[] triggerSend = {'R',triggerRight};
+    		i2c.transaction(triggerSend, 2, null, 0);
+    	
+    	}
+    	
         Scheduler.getInstance().run();
+=======
+
+    	}
+    	byte[] receive = new byte[8];
+    	if(ButtonX && ButtonA){
+    		System.out.println(i2c.read(8, 1, receive));
+    	}    	}
+
+>>>>>>> 37b6fc1f3017893bffd93510b2249bccb3738a7d
         
-    }
+    
 
     /**
      * This function is called periodically during test mode
