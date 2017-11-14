@@ -344,37 +344,39 @@ public class Robot extends IterativeRobot {
     	updateAll();
     	//Drive speed switcher
     	
-    	if (ButtonX && !fast){
+    	if (ButtonB && !fast){
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
         	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
-        	Timer.delay(1);
+        	Timer.delay(0.25);
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     		fast = true;
-    		driveSpeed = 1;
-    	}
-    	else if (ButtonX && fast){
-    		fast = false;
-    		driveSpeed = .5;
-    	}
-    	if (fast){
-    		driveSpeed = 1;
-    	}
-    	else if (!fast){
-    		driveSpeed = .5;
     	}
     	
+    	else if (ButtonB && fast){
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
+        	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
+        	Timer.delay(0.25);
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
+    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
+    		fast = false;
+    	}
+    	
+    	if(fast){
+    		driveSpeed = 1;
+    	}
+    	
+    	else if(fast == false){
+    		driveSpeed = 0.5;
+    	}
+    	
+    	
     	//drive left, but it's inverted so multiply by -1
-    	lFront.set((driveSpeed) * (AxisControlLeftY));
-		lBack.set((driveSpeed) * (AxisControlLeftY));
-		rFront.set((-1 * driveSpeed) * (AxisControlRightY));
-		rBack.set((-1 * driveSpeed) * (AxisControlRightY));
-    	lFront.set((-1 * driveSpeed) * (AxisControlRightY));
-		lBack.set((-1 * driveSpeed) * (AxisControlRightY));
-		rFront.set((driveSpeed) * (AxisControlLeftY));
-		rBack.set((driveSpeed) * (AxisControlLeftY));
-		
-    	lFront.set(AxisControlLeftY);
+
+    	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
+		lBack.set((-1*driveSpeed) * (AxisControlLeftY));
+		rFront.set(driveSpeed * AxisControlRightY);
+		rBack.set(driveSpeed * AxisControlRightY);
     	
     	clamp.set(TriggerLeft);
     	
