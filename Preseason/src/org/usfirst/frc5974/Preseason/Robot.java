@@ -44,8 +44,11 @@ public class Robot extends IterativeRobot {
 	Spark rBack = new Spark(2);
 	Spark rFront = new Spark(0);
 	
+<<<<<<< HEAD
 	
 	// Stolen code from last year, reformatting if possible?
+=======
+>>>>>>> fbb769cff5d85b67a94e1a84bcfc14d3342ce10a
 	//xBox mapping of controllers
 	double AxisControlLeftX;
 	double AxisControlLeftY;
@@ -64,6 +67,10 @@ public class Robot extends IterativeRobot {
 	boolean BumperRight;
 	boolean JoyButtonLeft;
 	boolean JoyButtonRight;
+	boolean dPadd;
+	boolean dPadu;
+	boolean dPadl;
+	boolean dPadr;
 	//The IMU/10 degrees of freedom
 	
 	/*
@@ -123,8 +130,7 @@ public class Robot extends IterativeRobot {
 	int processStep; //a step of a program
 	boolean toggleDriveMode = true; 
 	boolean toggleAscenderMode = true;
-	boolean fastMode = false;
-	double driveSpeed;
+	double driveSpeed = .5;
 	double velX = 0;
 	double velZ = 0;
 	double velY = 0;
@@ -138,7 +144,6 @@ public class Robot extends IterativeRobot {
 		
 		updateController();
 		//updateSensors();
-		updateMotors();
 	}
 	
 	public void updateController(){
@@ -172,13 +177,6 @@ public class Robot extends IterativeRobot {
 		}
 	}
 	
-	public void updateAxis(){ //Updates the Axis on the joysticks
-		AxisControlLeftY = masterRemote.getRawAxis(1);
-		AxisControlRightY = masterRemote.getRawAxis(5);
-		AxisControlLeftX = masterRemote.getRawAxis(0);
-		AxisControlRightX = masterRemote.getRawAxis(4);
-	}
-	
 	public void updateTrigger(){ //Updates the Axis on the triggers
 		TriggerLeft = masterRemote.getRawAxis(2);
 		TriggerRight = masterRemote.getRawAxis(3);
@@ -191,6 +189,11 @@ public class Robot extends IterativeRobot {
 		ButtonY = masterRemote.getRawButton(4);
 		ButtonStart = masterRemote.getRawButton(8);
 		ButtonBack = masterRemote.getRawButton(7);
+		dPadd = masterRemote.getRawButton(13);
+		dPadu = masterRemote.getRawButton(12);
+		dPadl = masterRemote.getRawButton(14);
+		dPadr = masterRemote.getRawButton(15);
+		
 	}
 	
 	public void updateBumper(){ //Updates the Bumper values
@@ -201,6 +204,13 @@ public class Robot extends IterativeRobot {
 	public void updateJoy(){ //Updates the joystick buttons
 		JoyButtonLeft = masterRemote.getRawButton(9);
 		JoyButtonRight = masterRemote.getRawButton(10);
+	}
+	
+	public void updateAxis(){ //Updates the Axis on the joysticks
+		AxisControlLeftY = masterRemote.getRawAxis(1);
+		AxisControlRightY = masterRemote.getRawAxis(5);
+		AxisControlLeftX = masterRemote.getRawAxis(0);
+		AxisControlRightX = masterRemote.getRawAxis(4);
 	}
 	
 	/*public void updateAccel(){ //Updates the values for Acceleration
@@ -257,12 +267,6 @@ public class Robot extends IterativeRobot {
 		updateWeather();
 	}*/
 	
-	public void updateMotors() {
-		lFront.set((-1 * driveSpeed) * AxisControlLeftY); 
-		lBack.set((-1 * driveSpeed) * AxisControlLeftY); 
-		rFront.set(driveSpeed * AxisControlRightY); 
-		rBack.set(driveSpeed * AxisControlRightY); 
-	}
 	
     Command autonomousCommand;
 
@@ -324,13 +328,44 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        
+        updateAll();
+        
+        masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
+    	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
+    	Timer.delay(1);
+		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
+		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     }
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	updateAll();
+    	//Drive speed switcher
+    	
+    	if (dPadl){
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
+        	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
+        	Timer.delay(1);
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
+    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
+    		driveSpeed = 1;
+    	}
+    	if (dPadr){
+    		driveSpeed = .5;
+    	}
+    	//drive left, but it's inverted so multiply by -1
+    	lFront.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+		lBack.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
+		rFront.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
+		rBack.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
+    	//a rumble when switching into autonomous would be nice
+		
+    	lFront.set(AxisControlLeftY);
         Scheduler.getInstance().run();
+        
     }
 
     /**

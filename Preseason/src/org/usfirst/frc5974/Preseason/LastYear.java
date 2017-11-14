@@ -229,7 +229,6 @@ public class LastYear extends IterativeRobot {
 		###    ### ######## #########  ########    ###      ##############    ###############    ###    
 	 */
 	
-	
 	public void robotInit() {
 		Navigation = new ADIS16448_IMU();
 		Navigation.calibrate();
