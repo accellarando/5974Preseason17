@@ -389,7 +389,7 @@ public class Robot extends IterativeRobot {
     	clamp.set(TriggerLeft);
     	
     	if (ButtonY) {
-    		String WriteString = "go";
+    		String WriteString = "underflow";
     		char[] CharArray = WriteString.toCharArray();
     		byte[] WriteData = new byte[CharArray.length];
     		for (int i = 0; i < CharArray.length; i++) {
