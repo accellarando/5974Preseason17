@@ -51,6 +51,7 @@ public class Robot extends IterativeRobot {
 	double AxisControlLeftY = 0;
 	double AxisControlRightX = 0;
 	double AxisControlRightY = 0;
+	boolean fast = false;
 	double TriggerLeft;
 	double TriggerRight;
 	boolean ButtonA;
@@ -343,15 +344,23 @@ public class Robot extends IterativeRobot {
     	updateAll();
     	//Drive speed switcher
     	
-    	if (ButtonX){
+    	if (ButtonX && !fast){
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
         	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
         	Timer.delay(1);
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
+    		fast = true;
     		driveSpeed = 1;
     	}
-    	if (ButtonB){
+    	else if (ButtonX && fast){
+    		fast = false;
+    		driveSpeed = .5;
+    	}
+    	if (fast){
+    		driveSpeed = 1;
+    	}
+    	else if (!fast){
     		driveSpeed = .5;
     	}
     	
