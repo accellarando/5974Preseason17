@@ -402,7 +402,6 @@ public class Robot extends IterativeRobot {
     		}
     		
     		i2c.transaction(WriteData, WriteData.length, null, 0);
-<<<<<<< HEAD
     	
     	}  
     	if (TriggerLeft>0) {
@@ -417,15 +416,12 @@ public class Robot extends IterativeRobot {
     	}
     	
         Scheduler.getInstance().run();
-=======
 
-    	}
+    	
     	byte[] receive = new byte[8];
     	if(ButtonX && ButtonA){
     		System.out.println(i2c.read(8, 1, receive));
     	}    	}
-
->>>>>>> 37b6fc1f3017893bffd93510b2249bccb3738a7d
         
     
 
