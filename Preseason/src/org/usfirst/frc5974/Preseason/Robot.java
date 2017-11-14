@@ -388,5 +388,35 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
-    }
-}
+    
+    
+    
+    //Bumper Quick Turns
+    
+    boolean lTurn = false;
+    
+    if(BumperLeft && lTurn==false) {lTurn = true;}
+    
+    if(lTurn==true) {
+
+    	lFront.set(1);
+    	lBack.set(1);
+    	rFront.set(-1);
+    	rBack.set(-1);
+    	Timer.delay(0.3);
+    	lTurn=false;
+    	
+    }	
+    	
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}}
