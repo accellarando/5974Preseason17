@@ -331,7 +331,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	updateAll();
-    	public static int twitchTurn (int turnTo) { //possible bool? Might be constantly used, may not.
+    	int twitchTurn (int turnTo) { //possible bool? Might be constantly used, may not.
     		if (turnTo < 0) {
     			lFront.set(-1);
             	lBack.set(-1);
