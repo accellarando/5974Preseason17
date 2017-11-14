@@ -331,8 +331,27 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	updateAll();
+    	public static int twitchTurn (int turnTo) { //possible bool? Might be constantly used, may not.
+    		if (turnTo < 0) {
+    			lFront.set(-1);
+            	lBack.set(-1);
+            	rFront.set(-1);
+            	rBack.set(-1);
+    		}
+    		if (turnTo > 1) {
+    			lFront.set(1);
+            	lBack.set(1);
+            	rFront.set(1);
+            	rBack.set(1);
+    		}
+    		Timer.delay(0.3);
+    		lFront.set(0);
+        	lBack.set(0);
+        	rFront.set(0);
+        	rBack.set(0);
+    	}
     	
-    	//Bumper Quick Turns
+    	/*
     	if(BumperLeft){
         	lFront.set(-1);
         	lBack.set(-1);
@@ -355,7 +374,7 @@ public class Robot extends IterativeRobot {
         	lBack.set(0);
         	rFront.set(0);
         	rBack.set(0);
-        }
+        }*/
     	
     	//Drive speed switcher
     	if (ButtonB && !fast){
