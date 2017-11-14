@@ -333,16 +333,28 @@ public class Robot extends IterativeRobot {
     	updateAll();
     	
     	//Bumper Quick Turns
-        boolean lTurn = false;
-    	if(BumperLeft && lTurn==false) {lTurn = true;}
-        
-        if(lTurn==true) {
-        	lFront.set(1);
-        	lBack.set(1);
+    	if(BumperLeft){
+        	lFront.set(-1);
+        	lBack.set(-1);
         	rFront.set(-1);
         	rBack.set(-1);
         	Timer.delay(0.3);
-        	lTurn=false;
+        	lFront.set(0);
+        	lBack.set(0);
+        	rFront.set(0);
+        	rBack.set(0);
+    	}
+        
+        if(BumperRight){
+        	lFront.set(1);
+        	lBack.set(1);
+        	rFront.set(1);
+        	rBack.set(1);
+        	Timer.delay(0.3);
+        	lFront.set(0);
+        	lBack.set(0);
+        	rFront.set(0);
+        	rBack.set(0);
         }
     	
     	//Drive speed switcher
