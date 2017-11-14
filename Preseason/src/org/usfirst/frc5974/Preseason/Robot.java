@@ -44,6 +44,11 @@ public class Robot extends IterativeRobot {
 	Spark rBack = new Spark(2);
 	Spark rFront = new Spark(0);
 	
+<<<<<<< HEAD
+	
+	// Stolen code from last year, reformatting if possible?
+=======
+>>>>>>> fbb769cff5d85b67a94e1a84bcfc14d3342ce10a
 	//xBox mapping of controllers
 	double AxisControlLeftX;
 	double AxisControlLeftY;
