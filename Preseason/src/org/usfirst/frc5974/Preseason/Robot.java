@@ -352,29 +352,7 @@ public class Robot extends IterativeRobot {
     
     public void teleopPeriodic() {
     	updateAll();
-    	
-<<<<<<< HEAD
-=======
-    	void twitchTurn(int turnTo) { //possible bool? Might be constantly used, may not.
-    		if (turnTo < 0) {
-    			lFront.set(-1);
-            	lBack.set(-1);
-            	rFront.set(-1);
-            	rBack.set(-1);
-    		}
-    		if (turnTo > 1) {
-    			lFront.set(1);
-            	lBack.set(1);
-            	rFront.set(1);
-            	rBack.set(1);
-    		}
-    		Timer.delay(0.3);
-    		lFront.set(0);
-        	lBack.set(0);
-        	rFront.set(0);
-        	rBack.set(0);
-    	}
->>>>>>> d094cd81961d228e211fa5d0e31621f89cb7eba0
+    	twitchTurn(0);
     	
     	//Drive speed switcher
     	if (ButtonB && !fast){
