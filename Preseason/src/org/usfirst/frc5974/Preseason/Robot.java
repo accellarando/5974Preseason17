@@ -135,7 +135,7 @@ public class Robot extends IterativeRobot {
 	boolean XPressed = false;
 	boolean JoyRightToggle = false;
 	
-	void updateAll(){
+	public void updateAll(){
 		
 		updateController();
 		//updateSensors();
