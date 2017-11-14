@@ -329,27 +329,30 @@ public class Robot extends IterativeRobot {
     /**
      * This function is called periodically during operator control
      */
+    
+    public void twitchTurn(int turnTo) { 
+		if (turnTo < 0) {
+			lFront.set(-1);
+        	lBack.set(-1);
+        	rFront.set(-1);
+        	rBack.set(-1);
+		}
+		if (turnTo > 1) {
+			lFront.set(1);
+        	lBack.set(1);
+        	rFront.set(1);
+        	rBack.set(1);
+		}
+		Timer.delay(0.3);
+		lFront.set(0);
+    	lBack.set(0);
+    	rFront.set(0);
+    	rBack.set(0);
+	}
+    
     public void teleopPeriodic() {
     	updateAll();
-    	int twitchTurn (int turnTo) { //possible bool? Might be constantly used, may not.
-    		if (turnTo < 0) {
-    			lFront.set(-1);
-            	lBack.set(-1);
-            	rFront.set(-1);
-            	rBack.set(-1);
-    		}
-    		if (turnTo > 1) {
-    			lFront.set(1);
-            	lBack.set(1);
-            	rFront.set(1);
-            	rBack.set(1);
-    		}
-    		Timer.delay(0.3);
-    		lFront.set(0);
-        	lBack.set(0);
-        	rFront.set(0);
-        	rBack.set(0);
-    	}
+    	twitchTurn(0);
     	
     	//Drive speed switcher
     	if (ButtonB && !fast){
@@ -386,20 +389,22 @@ public class Robot extends IterativeRobot {
     	clamp.set(TriggerLeft);
     	
     	if (ButtonY) {
-    		String WriteString = "go";
+    		String WriteString = "underflow?";
     		char[] CharArray = WriteString.toCharArray();
     		byte[] WriteData = new byte[CharArray.length];
     		for (int i = 0; i < CharArray.length; i++) {
     			WriteData[i] = (byte) CharArray[i];
     		}
     		i2c.transaction(WriteData, WriteData.length, null, 0);
+
     	}
     	//byte[] receive = new byte[8];
     	//Console.log(i2c.read(8, 1, receive));
     	System.out.println("Test output");
-        Scheduler.getInstance().run();
+    	}    	
+
         
-    }
+    
 
     /**
      * This function is called periodically during test mode
