@@ -44,16 +44,12 @@ public class Robot extends IterativeRobot {
 	Spark rBack = new Spark(2);
 	Spark rFront = new Spark(0);
 	
-<<<<<<< HEAD
-	
 	// Stolen code from last year, reformatting if possible?
-=======
->>>>>>> fbb769cff5d85b67a94e1a84bcfc14d3342ce10a
 	//xBox mapping of controllers
-	double AxisControlLeftX;
-	double AxisControlLeftY;
-	double AxisControlRightX;
-	double AxisControlRightY;
+	double AxisControlLeftX = 0;
+	double AxisControlLeftY = 0;
+	double AxisControlRightX = 0;
+	double AxisControlRightY = 0;
 	double TriggerLeft;
 	double TriggerRight;
 	boolean ButtonA;
@@ -206,7 +202,7 @@ public class Robot extends IterativeRobot {
 		JoyButtonRight = masterRemote.getRawButton(10);
 	}
 	
-	public void updateAxis(){ //Updates the Axis on the joysticks
+	public void updateAxis(){ //Updates the axes on the joysticks
 		AxisControlLeftY = masterRemote.getRawAxis(1);
 		AxisControlRightY = masterRemote.getRawAxis(5);
 		AxisControlLeftX = masterRemote.getRawAxis(0);
@@ -288,6 +284,7 @@ public class Robot extends IterativeRobot {
         //(which it very likely will), subsystems are not guaranteed to be
         // constructed yet. Thus, their requires() statements may grab null
         // pointers. Bad news. Don't move it.
+		masterRemote = new Joystick(0);
         oi = new OI();
 
         // instantiate the command used for the autonomous period
