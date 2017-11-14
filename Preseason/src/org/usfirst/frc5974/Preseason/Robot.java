@@ -43,13 +43,14 @@ public class Robot extends IterativeRobot {
 	Spark lFront = new Spark(3);
 	Spark rBack = new Spark(2);
 	Spark rFront = new Spark(0);
+	Spark clamp = new Spark(4);
 	
 	// Stolen code from last year, reformatting if possible?
 	//xBox mapping of controllers
-	double AxisControlLeftX;
-	double AxisControlLeftY;
-	double AxisControlRightX;
-	double AxisControlRightY;
+	double AxisControlLeftX = 0;
+	double AxisControlLeftY = 0;
+	double AxisControlRightX = 0;
+	double AxisControlRightY = 0;
 	double TriggerLeft;
 	double TriggerRight;
 	boolean ButtonA;
@@ -202,7 +203,7 @@ public class Robot extends IterativeRobot {
 		JoyButtonRight = masterRemote.getRawButton(10);
 	}
 	
-	public void updateAxis(){ //Updates the Axis on the joysticks
+	public void updateAxis(){ //Updates the axes on the joysticks
 		AxisControlLeftY = masterRemote.getRawAxis(1);
 		AxisControlRightY = masterRemote.getRawAxis(5);
 		AxisControlLeftX = masterRemote.getRawAxis(0);
@@ -284,6 +285,7 @@ public class Robot extends IterativeRobot {
         //(which it very likely will), subsystems are not guaranteed to be
         // constructed yet. Thus, their requires() statements may grab null
         // pointers. Bad news. Don't move it.
+		masterRemote = new Joystick(0);
         oi = new OI();
 
         // instantiate the command used for the autonomous period
@@ -352,13 +354,18 @@ public class Robot extends IterativeRobot {
     	if (dPadr){
     		driveSpeed = .5;
     	}
+    	
     	//drive left, but it's inverted so multiply by -1
-    	lFront.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-		lBack.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
-		rFront.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
-		rBack.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
+    	lFront.set((driveSpeed) * (AxisControlLeftY - AxisControlLeftX));
+		lBack.set((driveSpeed) * (AxisControlLeftY - AxisControlLeftX));
+		rFront.set((-1 * driveSpeed) * (AxisControlRightY + AxisControlRightX));
+		rBack.set((-1 * driveSpeed) * (AxisControlRightY + AxisControlRightX));
 		
     	lFront.set(AxisControlLeftY);
+    	
+    	clamp.set(TriggerLeft);
+    	
+    	
         Scheduler.getInstance().run();
         
     }
