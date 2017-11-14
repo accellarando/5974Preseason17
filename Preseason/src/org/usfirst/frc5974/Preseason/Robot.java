@@ -43,6 +43,7 @@ public class Robot extends IterativeRobot {
 	Spark lFront = new Spark(3);
 	Spark rBack = new Spark(2);
 	Spark rFront = new Spark(0);
+	Spark clamp = new Spark(4);
 	
 	// Stolen code from last year, reformatting if possible?
 	//xBox mapping of controllers
@@ -361,6 +362,10 @@ public class Robot extends IterativeRobot {
 		rBack.set((-1 * driveSpeed) * (AxisControlRightY + AxisControlRightX));
 		
     	lFront.set(AxisControlLeftY);
+    	
+    	clamp.set(TriggerLeft);
+    	
+    	
         Scheduler.getInstance().run();
         
     }
