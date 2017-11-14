@@ -44,6 +44,7 @@ public class Robot extends IterativeRobot {
 	Spark rBack = new Spark(2);
 	Spark rFront = new Spark(0);
 	
+	// Stolen code from last year, reformatting if possible?
 	//xBox mapping of controllers
 	double AxisControlLeftX;
 	double AxisControlLeftY;
@@ -135,7 +136,7 @@ public class Robot extends IterativeRobot {
 	boolean XPressed = false;
 	boolean JoyRightToggle = false;
 	
-	void updateAll(){
+	public void updateAll(){
 		
 		updateController();
 		//updateSensors();
@@ -325,6 +326,12 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
         
         updateAll();
+        
+        masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
+    	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
+    	Timer.delay(1);
+		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
+		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     }
 
     /**
@@ -350,8 +357,7 @@ public class Robot extends IterativeRobot {
 		lBack.set(((driveSpeed)) * (AxisControlLeftY - AxisControlLeftX));
 		rFront.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
 		rBack.set((-1 * (driveSpeed)) * (AxisControlLeftY + AxisControlLeftX));
-    	//a rumble when switching into autonomous would be nice
-    	//so would a fastmode rumble
+		
     	lFront.set(AxisControlLeftY);
         Scheduler.getInstance().run();
         
