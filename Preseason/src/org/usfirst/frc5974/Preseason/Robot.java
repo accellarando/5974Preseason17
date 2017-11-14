@@ -154,22 +154,22 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public void deadZones() { //The Axis are too accurate and thus need to be cut off
-		if(Math.abs(AxisControlLeftY) <= 0.1) {
+		if(Math.abs(AxisControlLeftY) <= 0.15) {
 			AxisControlLeftY = 0;
 		}
-		if (Math.abs(AxisControlRightY) <= 0.1) {
+		if (Math.abs(AxisControlRightY) <= 0.15) {
 			AxisControlRightY = 0;
 		}
-		if(Math.abs(AxisControlLeftX) <= 0.1) {
+		if(Math.abs(AxisControlLeftX) <= 0.15) {
 			AxisControlLeftX = 0;
 		}
-		if(Math.abs(AxisControlRightX) <= 0.1) {
+		if(Math.abs(AxisControlRightX) <= 0.15) {
 			AxisControlRightX = 0;
 		}
-		if(Math.abs(TriggerLeft) <= 0.1) {
+		if(Math.abs(TriggerLeft) <= 0.15) {
 			TriggerLeft = 0;
 		}
-		if(Math.abs(TriggerRight) <= 0.1) {
+		if(Math.abs(TriggerRight) <= 0.15) {
 			TriggerRight = 0;
 		}
 	}
