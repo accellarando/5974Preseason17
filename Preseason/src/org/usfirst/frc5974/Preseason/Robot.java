@@ -402,30 +402,26 @@ public class Robot extends IterativeRobot {
     		}
     		
     		i2c.transaction(WriteData, WriteData.length, null, 0);
-<<<<<<< HEAD
     	
     	}  
-    	if (TriggerLeft>0) {
-    		byte[] triggerSend = {'L',triggerLeft};
-    		i2c.transaction(triggerSend, 2, null, 0);
-    	
-    	}
-    	if (TriggerRight>0) {
-    		byte[] triggerSend = {'R',triggerRight};
-    		i2c.transaction(triggerSend, 2, null, 0);
-    	
-    	}
+	    	if (TriggerLeft>0) {
+	    		byte[] triggerSend = {'L',triggerLeft};
+	    		i2c.transaction(triggerSend, 2, null, 0);
+	    	
+	    	}
+	    	if (TriggerRight>0) {
+	    		byte[] triggerSend = {'R',triggerRight};
+	    		i2c.transaction(triggerSend, 2, null, 0);
+	    	
+	    	}
     	
         Scheduler.getInstance().run();
-=======
-
-    	}
-    	//byte[] receive = new byte[8];
+        
+        //byte[] receive = new byte[8];
     	//Console.log(i2c.read(8, 1, receive));
     	System.out.println("Test output");
-    	}    	
-
->>>>>>> 37b6fc1f3017893bffd93510b2249bccb3738a7d
+    	}
+    	
         
     
 
