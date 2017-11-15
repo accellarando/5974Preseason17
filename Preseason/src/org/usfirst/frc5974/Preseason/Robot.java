@@ -137,9 +137,13 @@ public class Robot extends IterativeRobot {
 	boolean JoyRightToggle = false;
 	
 	public void updateAll(){
-		angle = gyro.getAngle();
+		updateGyros();
 		updateController();
 		//updateSensors();
+	}
+	
+	public void updateGyros(){
+		angle = nav.getAngle();
 	}
 	
 	public void updateController(){
@@ -285,6 +289,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+    	nav = new ADIS16448_IMU();
     	RobotMap.init();
     	i2c = new I2C(Port.kOnboard, 8);
         // OI must be constructed after subsystems. If the OI creates Commands
@@ -296,7 +301,6 @@ public class Robot extends IterativeRobot {
         // instantiate the command used for the autonomous period
         autonomousCommand = new AutonomousCommand();
         gyro.calibrate();
-        nav.calibrate();
     }
 
     /**
@@ -475,8 +479,16 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
     	
         if (ButtonX){
-        	System.out.println("Gyroscope says: "+gyro.getAngle());
-        	System.out.println("Fancy gyro says:"+nav.getAngle());
+        	while(angle<90.0){
+        		lFront.set(-0.5);
+        		lBack.set(-0.5);
+        		rFront.set(-0.5);
+        		rBack.set(-0.5);
+        		if(angle>=90.0){
+        			break;
+        		}
+        	}
+        	System.out.println("Fancy gyro says:"+nav.getAngle()+"\n");
         }
         
     }
