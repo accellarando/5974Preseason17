@@ -349,8 +349,8 @@ public class Robot extends IterativeRobot {
     	
     	//Drive speed switcher
     	if (ButtonB && !fast){
-    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
-        	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 1);
+        	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 1);
         	Timer.delay(0.25);
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
@@ -358,8 +358,8 @@ public class Robot extends IterativeRobot {
     	}
 
     	else if (ButtonB && fast){
-    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
-        	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 1);
+        	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 1);
         	Timer.delay(0.25);
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
