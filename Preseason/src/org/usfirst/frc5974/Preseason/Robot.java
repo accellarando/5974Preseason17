@@ -64,10 +64,8 @@ public class Robot extends IterativeRobot {
 	 * double HeadingZ;
 	 * 
 	 * Meant to measure the distance to magnetic north. With a gyroscope, apparently.
-	 * 
-	 * This is entirely useless, why code it in the first place? -JavaGreenhorn.
 	 * @JavaGreenhorn this stuff was for the ADIS16448 IMU that we have. 
-	 * In addition to gyro, it also contains compass, accelerometer, altimeter, thermometer, and like some other stuff I think
+	 * In addition to gyro, it also contains a compass, accelerometer, altimeter, thermometer, and like some other stuff I think
 	 * 
 	 */
 	
@@ -76,7 +74,7 @@ public class Robot extends IterativeRobot {
 	 * double AccelY; 	Gyroscope value for Y-Axis Rotation
 	 * double AccelZ; 	Gyroscope value for Z-Axis Rotation
 	 * 
-	 * Meant to gauge acceleration, with a gyroscope we don't have.
+	 * Meant to gauge acceleration, with a gyroscope we don't have set up.
 	 */
 	
 	/*
@@ -84,7 +82,7 @@ public class Robot extends IterativeRobot {
 	 * double RateY;
 	 * double RateZ;
 	 * 
-	 * Measures the R.P.M. of each axis, with a gyroscope we don't have.
+	 * Measures the R.P.M. of each axis, with a gyroscope we don't have set up.
 	 */
 	
 	/*
@@ -99,7 +97,7 @@ public class Robot extends IterativeRobot {
 	 *double Yaw;		Gyroscope value for Y-Axis Rotation
 	 *double Roll;		Gyroscope value for Z-Axis Rotation
 	 *
-	 * We don't have a gyroscope. If we install one, Aiming/stabilization, perhaps?
+	 * We don't have a gyroscope set up. If we install one, Aiming/stabilization, perhaps?
 	 */
 	
 	//double Angle; *Completely Unused.*
@@ -109,7 +107,7 @@ public class Robot extends IterativeRobot {
 	 * double AngleY;
 	 * double AngleZ;
 	 * 
-	 * Meant to measure the rotation value of the gyroscope, which we don't have.
+	 * Meant to measure the rotation value of the gyroscope, which we're not using.
 	 */
 	
 	//double distZ; *Distance measurement, meant to be used without tele-op.*
@@ -179,10 +177,16 @@ public class Robot extends IterativeRobot {
 		ButtonY = masterRemote.getRawButton(4);
 		ButtonStart = masterRemote.getRawButton(8);
 		ButtonBack = masterRemote.getRawButton(7);
-//		dPadd = masterRemote.getRawButton(13);
-//		dPadu = masterRemote.getRawButton(12);
-//		dPadl = masterRemote.getRawButton(14);
-//		dPadr = masterRemote.getRawButton(15);
+		
+		/*
+		 * dPadd = masterRemote.getRawButton(13);
+		 * dPadu = masterRemote.getRawButton(12);
+		 * dPadl = masterRemote.getRawButton(14);
+		 * dPadr = masterRemote.getRawButton(15);
+		 * 
+		 * dPad doesn't seem to like "RawButton". Commented out until we need it. -JavaGreenhorn
+		 * dPadl(eft) was meant to toggle fastmode, other buttons have no planned purpose (yet).
+		 */	
 		
 	}
 	
@@ -409,6 +413,16 @@ public class Robot extends IterativeRobot {
     	
     	}
     	
+<<<<<<< HEAD
+=======
+	    	byte[] receive = new byte[1];
+	    	if(ButtonA){
+	    		i2c.read(8, 1, receive);
+	    		System.out.println(receive[0]);
+	    	}  
+	    	
+	    	
+>>>>>>> 5f2a1e3d8fcbeecc375ee8c5f04a82b922fdb173
         Scheduler.getInstance().run();
     	
     	byte[] receive = new byte[1];
