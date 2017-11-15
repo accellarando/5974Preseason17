@@ -64,6 +64,9 @@ public class Robot extends IterativeRobot {
 	double AngleX;
 	double AngleY;
 	double AngleZ;
+	double HeadingX;
+	double HeadingY;
+	double HeadingZ;
 	
 	/*
 	 * double HeadingX;
@@ -292,6 +295,8 @@ public class Robot extends IterativeRobot {
         oi = new OI();
         // instantiate the command used for the autonomous period
         autonomousCommand = new AutonomousCommand();
+        gyro.calibrate();
+        nav.calibrate();
     }
 
     /**
@@ -471,6 +476,7 @@ public class Robot extends IterativeRobot {
     	
         if (ButtonX){
         	System.out.println("Gyroscope says: "+gyro.getAngle());
+        	System.out.println("Fancy gyro says:"+nav.getAngle());
         }
         
     }
