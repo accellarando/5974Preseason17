@@ -382,8 +382,8 @@ public class Robot extends IterativeRobot {
     	else if(fast == false){
     		driveSpeed = 0.5;
     	}
-
-    	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
+    	
+	    lFront.set((-1*driveSpeed) * (AxisControlLeftY));
 		lBack.set((-1*driveSpeed) * (AxisControlLeftY));
 		rFront.set(driveSpeed * AxisControlRightY);
 		rBack.set(driveSpeed * AxisControlRightY);
