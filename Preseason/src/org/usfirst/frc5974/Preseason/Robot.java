@@ -67,6 +67,7 @@ public class Robot extends IterativeRobot {
 	double HeadingX;
 	double HeadingY;
 	double HeadingZ;
+	boolean turning = false;
 	
 	/*
 	 * double HeadingX;
@@ -390,37 +391,6 @@ public class Robot extends IterativeRobot {
     	
     	updateAll();
     	
-    	boolean lTurn = false;
-    	boolean rTurn = false;
-    	boolean qTurn = false;
-    	
-    	if (qTurn == false & BumperLeft == true) { qTurn = true; lTurn = true;}
-    	
-    	if(lTurn == true) {
-    		lFront.set(1);
-    		rFront.set(1);
-    		lBack.set(1);
-    		rBack.set(1);
-    		Timer.delay(0.3);
-    		lTurn = false;
-    		qTurn = false;
-    	}
-    	
-    	if (qTurn == false & BumperRight == true) { qTurn = true; rTurn = true;}
-    	
-    	if(rTurn == true) {
-    		lFront.set(-1);
-    		rFront.set(-1);
-    		lBack.set(-1);
-    		rBack.set(-1);
-    		Timer.delay(0.3);
-    		rTurn = false;
-    		qTurn = false;
-    	}
-    	
-    	
-    	//twitchTurn(0);
-    	
     	//Drive speed switcher
     	if (ButtonB && !fast){
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
@@ -430,7 +400,6 @@ public class Robot extends IterativeRobot {
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     		fast = true;
     	}
-    	
     	else if (ButtonB && fast){
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
         	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
@@ -439,28 +408,47 @@ public class Robot extends IterativeRobot {
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     		fast = false;
     	}
-    	
     	if(fast){
     		driveSpeed = 1;
     	}
-    	
-    	
-    	
     	else if(fast == false){
     		driveSpeed = 0.5;
     	}
     	
-    	
-    	if (qTurn == false) {
-    	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
-		lBack.set((-1*driveSpeed) * (AxisControlLeftY));
-		rFront.set(driveSpeed * AxisControlRightY);
-		rBack.set(driveSpeed * AxisControlRightY);
+    	//Quik turning
+    	//if bumber left turn left
+    	if(BumperLeft) {
+    		turning = true;
+    		lFront.set(1);
+    		rFront.set(1);
+    		lBack.set(1);
+    		rBack.set(1);
+    		Timer.delay(0.3);
+    		turning = false;
+    	}
+    	//if bumper right turn right
+    	if(BumperRight) {
+    		turning = true;
+    		lFront.set(-1);
+    		rFront.set(-1);
+    		lBack.set(-1);
+    		rBack.set(-1);
+    		Timer.delay(0.3);
+    		turning = false;
+    	}
+    	//drive code
+    	//if turning dont drive
+    	if (turning == false) {
+	    	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
+			lBack.set((-1*driveSpeed) * (AxisControlLeftY));
+			rFront.set(driveSpeed * AxisControlRightY);
+			rBack.set(driveSpeed * AxisControlRightY);
     	}
 		
-		
+		//Talking to the arduino
     	clamp.set(TriggerLeft);
          
+    	//Giving it a speed for the stepper motor and asking it for stuff back
     	if (TriggerLeft>0) {
     		byte[] triggerSend = {'L',triggerLeft};
     		i2c.transaction(triggerSend, 2, receiveData, 1);
@@ -471,14 +459,13 @@ public class Robot extends IterativeRobot {
     		i2c.transaction(triggerSend, 2, receiveData, 1);
     		System.out.println(receiveData[0]);
     	}
-    	 
-        Scheduler.getInstance().run();
-    	
+        //asking the gyroscope for its data
         if (ButtonX){
         	System.out.println("Gyroscope says: "+gyro.getAngle());
         	System.out.println("Fancy gyro says:"+nav.getAngle());
         }
         
+        Scheduler.getInstance().run();
     }
     
 
