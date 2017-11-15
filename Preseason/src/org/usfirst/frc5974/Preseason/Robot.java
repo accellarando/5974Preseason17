@@ -29,7 +29,7 @@ public class Robot extends IterativeRobot {
 	Spark lFront = new Spark(2);
 	Spark clamp = new Spark(4);
 	I2C i2c;
-	byte[] reciveData = new byte[10];
+	byte[] receiveData = new byte[1];
 	
 	// Stolen code from last year, reformatting if possible?
 	double AxisControlLeftX = 0;
@@ -390,47 +390,26 @@ public class Robot extends IterativeRobot {
 		rBack.set(driveSpeed * AxisControlRightY);
     	
     	clamp.set(TriggerLeft);
-    	
-    	if (ButtonY) {
-    		String WriteString = "underflow?";
-    		char[] CharArray = WriteString.toCharArray();
-    		byte[] WriteData = new byte[CharArray.length];
-    		for (int i = 0; i < CharArray.length; i++) {
-    			WriteData[i] = (byte) CharArray[i];
-    		}
-    		
-    		i2c.transaction(WriteData, WriteData.length, null, 0);
-    	
-    	}  
+         
     	if (TriggerLeft>0) {
     		byte[] triggerSend = {'L',triggerLeft};
-    		i2c.transaction(triggerSend, 2, null, 0);
-    	
+    		i2c.transaction(triggerSend, 2, receiveData, 1);
+    		System.out.println(receiveData[0]);
     	}
     	if (TriggerRight>0) {
     		byte[] triggerSend = {'R',triggerRight};
-    		i2c.transaction(triggerSend, 2, null, 0);
-    	
+    		i2c.transaction(triggerSend, 2, receiveData, 1);
+    		System.out.println(receiveData[0]);
     	}
     	
-<<<<<<< HEAD
-=======
-	    	byte[] receive = new byte[1];
-	    	if(ButtonA){
-	    		i2c.read(8, 1, receive);
-	    		System.out.println(receive[0]);
-	    	}  
-	    	
-	    	
->>>>>>> 5f2a1e3d8fcbeecc375ee8c5f04a82b922fdb173
+	    byte[] receive = new byte[1];
+	    if(ButtonA){
+	    	i2c.read(8, 1, receive);
+	    	System.out.println(receive[0]);
+	    }  
         Scheduler.getInstance().run();
     	
-    	byte[] receive = new byte[1];
-    	if(ButtonA){
-    		//System.out.println(i2c.read(8, 1, receive));
-    		i2c.read(8, 1, receive);
-    		System.out.println(receive);
-    	}  }
+    }
         
     
 
