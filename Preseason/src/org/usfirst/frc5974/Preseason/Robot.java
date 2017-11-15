@@ -138,9 +138,13 @@ public class Robot extends IterativeRobot {
 	boolean JoyRightToggle = false;
 	
 	public void updateAll(){
-		angle = gyro.getAngle();
+		updateGyros();
 		updateController();
 		//updateSensors();
+	}
+	
+	public void updateGyros(){
+		angle = nav.getAngle();
 	}
 	
 	public void updateController(){
@@ -285,6 +289,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+    	nav = new ADIS16448_IMU();
     	RobotMap.init();
     	i2c = new I2C(Port.kOnboard, 8);
         // OI must be constructed after subsystems. If the OI creates Commands
@@ -296,7 +301,6 @@ public class Robot extends IterativeRobot {
         // instantiate the command used for the autonomous period
         autonomousCommand = new AutonomousCommand();
         gyro.calibrate();
-        nav.calibrate();
     }
 
     /**
@@ -352,6 +356,7 @@ public class Robot extends IterativeRobot {
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     		fast = true;
     	}
+
     	else if (ButtonB && fast){
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
         	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
@@ -360,21 +365,39 @@ public class Robot extends IterativeRobot {
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     		fast = false;
     	}
+    	
     	if(fast){
     		driveSpeed = 1;
     	}
+
+
     	else if(fast == false){
     		driveSpeed = 0.5;
     	}
     	
-    	//Quik turning
-    	//if bumber left turn left
+    	boolean qTurn = false;
+    	if (qTurn == false) {
+    	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
+		lBack.set((-1*driveSpeed) * (AxisControlLeftY));
+		rFront.set(driveSpeed * AxisControlRightY);
+		rBack.set(driveSpeed * AxisControlRightY);
+    	}
+		
+		
+    	//clamp.set([some button/joystick]);
+         
+    	//Quick turning
+    	//if bumper left turn left
     	if(BumperLeft) {
     		turning = true;
     		lFront.set(1);
     		rFront.set(1);
     		lBack.set(1);
     		rBack.set(1);
+<<<<<<< HEAD
+=======
+    		Timer.delay(0.3);//replace with gyro data at some point
+>>>>>>> b8ebe3e35aa6e5b4abe676c6d3ac40d57bbea4a9
     		turning = false;
     	}
     	//if bumper right turn right
@@ -384,21 +407,24 @@ public class Robot extends IterativeRobot {
     		rFront.set(-1);
     		lBack.set(-1);
     		rBack.set(-1);
+<<<<<<< HEAD
+=======
+    		Timer.delay(0.3);//do a gyro
+>>>>>>> b8ebe3e35aa6e5b4abe676c6d3ac40d57bbea4a9
     		turning = false;
     	}
     	//drive code
-    	//if turning dont drive
+    	//if turning don't drive
     	if (turning == false) {
 	    	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
 			lBack.set((-1*driveSpeed) * (AxisControlLeftY));
 			rFront.set(driveSpeed * AxisControlRightY);
 			rBack.set(driveSpeed * AxisControlRightY);
     	}
-		
-		//Talking to the arduino
-    	clamp.set(TriggerLeft);
-         
+    	
+        //it's arduino time 
     	//Giving it a speed for the stepper motor and asking it for stuff back
+
     	if (TriggerLeft>0) {
     		byte[] triggerSend = {'L',triggerLeft};
     		i2c.transaction(triggerSend, 2, receiveData, 1);
@@ -409,13 +435,27 @@ public class Robot extends IterativeRobot {
     		i2c.transaction(triggerSend, 2, receiveData, 1);
     		System.out.println(receiveData[0]);
     	}
-        //asking the gyroscope for its data
-        if (ButtonX){
-        	System.out.println("Gyroscope says: "+gyro.getAngle());
-        	System.out.println("Fancy gyro says:"+nav.getAngle());
+    	
+        if (ButtonX){//gyro proof of concept
+        	while(angle<90.0){
+        		lFront.set(-0.5);
+        		lBack.set(-0.5);
+        		rFront.set(-0.5);
+        		rBack.set(-0.5);
+        		if(angle>=90.0){
+        			lFront.set(0);
+        			lBack.set(0);
+        			rFront.set(0);
+        			rBack.set(0);
+        			break;
+        		}
+        	}
+        	System.out.println("Fancy gyro says:"+nav.getAngle()+"\n");
         }
+
         
         Scheduler.getInstance().run();
+
     }
     
 
