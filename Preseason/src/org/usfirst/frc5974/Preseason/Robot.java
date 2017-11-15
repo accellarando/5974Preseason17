@@ -460,20 +460,6 @@ public class Robot extends IterativeRobot {
         
     }
     
-    
-    /*
-     * hey fam it's our error message:
-     * ERROR  1  ERROR Unhandled exception:
-     * 
-     * java.nio.BufferUnderflowException at  [java.nio.DirectByteBuffer.get(DirectByteBuffer.java:271),
-     * java.nio.ByteBuffer.get(ByteBuffer.java:715), edu.wpi.first.wpilibj.I2C.transaction(I2C.java:84), 
-     * 
-     *  org.usfirst.frc5974.Preseason.Robot.teleopPeriodic(Robot.java:424),
-     *  edu.wpi.first.wpilibj.IterativeRobot.startCompetition(IterativeRobot.java:130), 
-     *  edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:247)]  
-     *  edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:249)
-     */
-    
 
     /**
      * This function is called periodically during test mode
