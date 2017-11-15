@@ -356,10 +356,7 @@ public class Robot extends IterativeRobot {
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     		fast = true;
     	}
-<<<<<<< HEAD
-    	
-=======
->>>>>>> 3993115cefd33bdb20ac0c6100d41d009ba0ef1b
+
     	else if (ButtonB && fast){
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
         	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
@@ -368,24 +365,16 @@ public class Robot extends IterativeRobot {
     		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     		fast = false;
     	}
-<<<<<<< HEAD
     	
     	if(fast){
     		driveSpeed = 1;
     	}
-    	
-    	
-    	
-=======
-    	if(fast){
-    		driveSpeed = 1;
-    	}
->>>>>>> 3993115cefd33bdb20ac0c6100d41d009ba0ef1b
+
+
     	else if(fast == false){
     		driveSpeed = 0.5;
     	}
     	
-<<<<<<< HEAD
     	boolean qTurn = false;
     	if (qTurn == false) {
     	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
@@ -397,9 +386,8 @@ public class Robot extends IterativeRobot {
 		
     	clamp.set(TriggerLeft);
          
-=======
-    	//Quik turning
-    	//if bumber left turn left
+    	//Quick turning
+    	//if bumper left turn left
     	if(BumperLeft) {
     		turning = true;
     		lFront.set(1);
@@ -432,7 +420,7 @@ public class Robot extends IterativeRobot {
     	clamp.set(TriggerLeft);
          
     	//Giving it a speed for the stepper motor and asking it for stuff back
->>>>>>> 3993115cefd33bdb20ac0c6100d41d009ba0ef1b
+
     	if (TriggerLeft>0) {
     		byte[] triggerSend = {'L',triggerLeft};
     		i2c.transaction(triggerSend, 2, receiveData, 1);
@@ -472,7 +460,7 @@ public class Robot extends IterativeRobot {
         }
         
         Scheduler.getInstance().run();
->>>>>>> 3993115cefd33bdb20ac0c6100d41d009ba0ef1b
+
     }
     
 
