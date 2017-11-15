@@ -323,10 +323,9 @@ public class Robot extends IterativeRobot {
 		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     }
 
-   /* 
-    * This twitchTurn thing breaks our drive code.
-    * I have no idea what this code is for, so I vote we just delete it, 
-    * unless it's going to do something useful.
+   /*  
+    * Might move to Autonomous later, no use for it now, already have tele-op drive. -JavaGreenhorn
+    * 
     * public void twitchTurn(int turnTo) { 
 		if (turnTo < 0) {
 			lFront.set(-1);
