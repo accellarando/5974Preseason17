@@ -416,9 +416,13 @@ public class Robot extends IterativeRobot {
     		driveSpeed = 0.5;
     	}
     	
+<<<<<<< HEAD
     	
     	if (qTurn == false) {
     	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
+=======
+	    lFront.set((-1*driveSpeed) * (AxisControlLeftY));
+>>>>>>> 4550255630e4c17db66b27ee89cc07a2da1254ea
 		lBack.set((-1*driveSpeed) * (AxisControlLeftY));
 		rFront.set(driveSpeed * AxisControlRightY);
 		rBack.set(driveSpeed * AxisControlRightY);
