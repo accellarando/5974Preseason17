@@ -397,25 +397,28 @@ public class Robot extends IterativeRobot {
     		i2c.transaction(WriteData, WriteData.length, null, 0);
     	
     	}  
-    	if (TriggerLeft>0) {
-    		byte[] triggerSend = {'L',triggerLeft};
-    		i2c.transaction(triggerSend, 2, null, 0);
+	    	if (TriggerLeft>0) {
+	    		byte[] triggerSend = {'L',triggerLeft};
+	    		i2c.transaction(triggerSend, 2, null, 0);
+	    	
+	    	}
+	    	if (TriggerRight>0) {
+	    		byte[] triggerSend = {'R',triggerRight};
+	    		i2c.transaction(triggerSend, 2, null, 0);
+	    	
+	    	}
     	
-    	}
-    	if (TriggerRight>0) {
-    		byte[] triggerSend = {'R',triggerRight};
-    		i2c.transaction(triggerSend, 2, null, 0);
-    	
-    	}
-    	
+	    	byte[] receive = new byte[1];
+	    	if(ButtonA){
+	    		System.out.println(i2c.read(8, 1, receive));
+	    	}  
+	    	
+	    	
         Scheduler.getInstance().run();
-    	
-    	byte[] receive = new byte[8];
-    	if(ButtonA){
-    		//System.out.println(i2c.read(8, 1, receive));
-    		i2c.transaction(receive, 8, receive, 1);
-    		System.out.println(receive);
-    	}  }
+        
+    }
+    
+    
     /*
      * hey fam it's our error message:
      * ERROR  1  ERROR Unhandled exception:
@@ -428,7 +431,6 @@ public class Robot extends IterativeRobot {
      *  edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:247)]  
      *  edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:249)
      */
-        
     
 
     /**
