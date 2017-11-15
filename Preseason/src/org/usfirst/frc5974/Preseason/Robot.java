@@ -353,7 +353,38 @@ public class Robot extends IterativeRobot {
 
     
     public void teleopPeriodic() {
+    	
     	updateAll();
+    	
+    	boolean lTurn = false;
+    	boolean rTurn = false;
+    	boolean qTurn = false;
+    	
+    	if (qTurn == false & BumperLeft == true) { qTurn = true; lTurn = true;}
+    	
+    	if(lTurn == true) {
+    		lFront.set(1);
+    		rFront.set(1);
+    		lBack.set(1);
+    		rBack.set(1);
+    		Timer.delay(0.3);
+    		lTurn = false;
+    		qTurn = false;
+    	}
+    	
+    	if (qTurn == false & BumperRight == true) { qTurn = true; rTurn = true;}
+    	
+    	if(rTurn == true) {
+    		lFront.set(-1);
+    		rFront.set(-1);
+    		lBack.set(-1);
+    		rBack.set(-1);
+    		Timer.delay(0.3);
+    		rTurn = false;
+    		qTurn = false;
+    	}
+    	
+    	
     	//twitchTurn(0);
     	
     	//Drive speed switcher
@@ -379,15 +410,21 @@ public class Robot extends IterativeRobot {
     		driveSpeed = 1;
     	}
     	
+    	
+    	
     	else if(fast == false){
     		driveSpeed = 0.5;
     	}
-
+    	
+    	
+    	if (qTurn == false) {
     	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
 		lBack.set((-1*driveSpeed) * (AxisControlLeftY));
 		rFront.set(driveSpeed * AxisControlRightY);
 		rBack.set(driveSpeed * AxisControlRightY);
-    	
+    	}
+		
+		
     	clamp.set(TriggerLeft);
     	
     	if (ButtonY) {
@@ -444,5 +481,4 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
         LiveWindow.run();
     	
-    }	 
-}
+    }}
