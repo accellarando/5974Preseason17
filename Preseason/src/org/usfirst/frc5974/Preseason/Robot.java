@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.analog.adis16448.frc.ADIS16448_IMU; //navigation
+//import com.analog.adis16448.frc.ADIS16448_IMU; //nav, but apparently it's garbage
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.I2C;
@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 
 //don't change the name of this class
 public class Robot extends IterativeRobot {
-	ADIS16448_IMU nav;
+//	ADIS16448_IMU nav;
 	Joystick masterRemote;
 	Timer Time = new Timer();
 	CameraServer camera;
@@ -61,65 +61,22 @@ public class Robot extends IterativeRobot {
 	boolean dPadr;
 	double angle;
 	//The IMU/10 degrees of freedom
-	double AngleX;
+	/*double AngleX;
 	double AngleY;
 	double AngleZ;
 	double HeadingX;
 	double HeadingY;
 	double HeadingZ;
+	double RateX;
+	double RateY;
+	double RateZ;
+	double Pitch;
+	double Yaw;
+	double Roll;
+	double AccelX;
+	double AccelY;
+	double AccelZ;*/
 	boolean turning = false;
-	
-	/*
-	 * double HeadingX;
-	 * double HeadingY;
-	 * double HeadingZ;
-	 * 
-	 * Meant to measure the distance to magnetic north. With a gyroscope, apparently.
-	 * @JavaGreenhorn this stuff was for the ADIS16448 IMU that we have. 
-	 * In addition to gyro, it also contains a compass, accelerometer, altimeter, thermometer, and like some other stuff I think
-	 * 
-	 */
-	
-	/*
-	 * double AccelX; 	Gyroscope value for X-Axis Rotation
-	 * double AccelY; 	Gyroscope value for Y-Axis Rotation
-	 * double AccelZ; 	Gyroscope value for Z-Axis Rotation
-	 * 
-	 * Meant to gauge acceleration, with a gyroscope we don't have set up.
-	 */
-	
-	/*
-	 * double RateX;
-	 * double RateY;
-	 * double RateZ;
-	 * 
-	 * Measures the R.P.M. of each axis, with a gyroscope we don't have set up.
-	 */
-	
-	/*
-	 * double Altitude; 
-	 * double Temp;
-	 * 
-	 * Meant to measure motor temp, roborio specific. Might not be needed.
-	 */
-	
-	/*
-	 *double Pitch; 	Gyroscope value for X-Axis Rotation
-	 *double Yaw;		Gyroscope value for Y-Axis Rotation
-	 *double Roll;		Gyroscope value for Z-Axis Rotation
-	 *
-	 * We don't have a gyroscope set up. If we install one, Aiming/stabilization, perhaps?
-	 */
-	
-	//double Angle; *Completely Unused.*
-	
-	/*
-	 * double AngleX;
-	 * double AngleY;
-	 * double AngleZ;
-	 * 
-	 * Meant to measure the rotation value of the gyroscope, which we're not using.
-	 */
 	
 	//double distZ; *Distance measurement, meant to be used without tele-op.*
 	
@@ -138,13 +95,8 @@ public class Robot extends IterativeRobot {
 	boolean JoyRightToggle = false;
 	
 	public void updateAll(){
-		updateGyros();
 		updateController();
 		//updateSensors();
-	}
-	
-	public void updateGyros(){
-		angle = nav.getAngle();
 	}
 	
 	public void updateController(){
@@ -222,46 +174,48 @@ public class Robot extends IterativeRobot {
 		AxisControlRightX = masterRemote.getRawAxis(4);
 	}
 	
-	/*public void updateAccel(){ //Updates the values for Acceleration
-		AccelX = Navigation.getAccelX();
-		AccelY = Navigation.getAccelY();
-		AccelZ = Navigation.getAccelZ();
+/*	public void updateAccel(){ //Updates the values for Acceleration
+		AccelX = nav.getAccelX();
+		AccelY = nav.getAccelY();
+		AccelZ = nav.getAccelZ();
 		SmartDashboard.putNumber("Accel X", AccelX);
 		SmartDashboard.putNumber("Accel Y", AccelY);
 		SmartDashboard.putNumber("Accel Z", AccelZ);
 	}
 	
 	public void updateRate(){ //Updates the rate at which one of these values are moving
-		RateX = Navigation.getRateX();
-		RateY = Navigation.getRateY();
-		RateZ = Navigation.getRateZ();
+		RateX = nav.getRateX();
+		RateY = nav.getRateY();
+		RateZ = nav.getRateZ();
 		SmartDashboard.putNumber("Rate X", RateX);
 		SmartDashboard.putNumber("Rate Y", RateY);
 		SmartDashboard.putNumber("Rate Z", RateZ);
 	}
 	
 	public void updateRotations(){ //Updates the Yaw, Pitch, and Roll values
-		Pitch = Math.floor(Navigation.getPitch());
-		Yaw = Math.floor(Navigation.getYaw());
-		Roll = Math.floor(Navigation.getRoll());
+		Pitch = Math.floor(nav.getPitch());
+		Yaw = Math.floor(nav.getYaw());
+		Roll = Math.floor(nav.getRoll());
 		SmartDashboard.putNumber("Pitch", Pitch);
 		SmartDashboard.putNumber("Yaw", Yaw);
 		SmartDashboard.putNumber("Roll", Roll);
 	}
 	
 	public void updateAngles(){ //Gets the angle of the gyroscope
-		AngleX = Navigation.getAngleX();
-		AngleY = Navigation.getAngleY();
-		AngleZ = Navigation.getAngleZ();
+		AngleX = nav.getAngleX();
+		AngleY = nav.getAngleY();
+		AngleZ = nav.getAngleZ();
+		angle = nav.getAngle();
 		SmartDashboard.putNumber("Angle X", AngleX);
 		SmartDashboard.putNumber("Angle Y", AngleY);
 		SmartDashboard.putNumber("Angle Z", AngleZ);
+		SmartDashboard.putNumber("Angle", angle);
 	}
 	
 	public void updateHeading(){ //Updates the "How far away are we from magnetic north?" values
-		HeadingX = Navigation.getMagX();
-		HeadingY = Navigation.getMagY();
-		HeadingZ = Navigation.getMagZ();
+		HeadingX = nav.getMagX();
+		HeadingY = nav.getMagY();
+		HeadingZ = nav.getMagZ();
 		SmartDashboard.putNumber("Heading X", HeadingX);
 		SmartDashboard.putNumber("Heading Y", HeadingY);
 		SmartDashboard.putNumber("Heading Z", HeadingZ);
@@ -289,7 +243,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	nav = new ADIS16448_IMU();
+    	//nav = new ADIS16448_IMU();
     	RobotMap.init();
     	i2c = new I2C(Port.kOnboard, 8);
         // OI must be constructed after subsystems. If the OI creates Commands
@@ -301,6 +255,7 @@ public class Robot extends IterativeRobot {
         // instantiate the command used for the autonomous period
         autonomousCommand = new AutonomousCommand();
         gyro.calibrate();
+    //    nav.calibrate();
     }
 
     /**
@@ -346,6 +301,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	
     	updateAll();
+    	LiveWindow.run();
     	
     	//Drive speed switcher
     	if (ButtonB && !fast){
@@ -431,7 +387,7 @@ public class Robot extends IterativeRobot {
     	}
     	
         if (ButtonX){//gyro proof of concept
-        	while(angle<90.0){
+        	/*while(angle < angle+90.0){
         		lFront.set(-0.5);
         		lBack.set(-0.5);
         		rFront.set(-0.5);
@@ -443,8 +399,8 @@ public class Robot extends IterativeRobot {
         			rBack.set(0);
         			break;
         		}
-        	}
-        	System.out.println("Fancy gyro says:"+nav.getAngle()+"\n");
+        	}*/
+//        	System.out.println("Fancy gyro says:"+nav.getAngle()+"\n");
         }
 
         
