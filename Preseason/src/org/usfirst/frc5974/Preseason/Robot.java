@@ -331,24 +331,24 @@ public class Robot extends IterativeRobot {
     * Might move to Autonomous later, no use for it now, already have tele-op drive. -JavaGreenhorn
     * 
     * public void twitchTurn(int turnTo) { 
-		if (turnTo < 0) {
-			lFront.set(-1);
-        	lBack.set(-1);
-        	rFront.set(-1);
-        	rBack.set(-1);
-		}
-		if (turnTo > 1) {
-			lFront.set(1);
-        	lBack.set(1);
-        	rFront.set(1);
-        	rBack.set(1);
-		}
-		Timer.delay(0.3);
-		lFront.set(0);
-    	//lBack.set(0);
-    	rFront.set(0);
-    	rBack.set(0);
-	}
+	*	if (turnTo < 0) {
+	*		lFront.set(-1);
+    *   	lBack.set(-1);
+    *    	rFront.set(-1);
+    *    	rBack.set(-1);
+	*	}
+	*	if (turnTo > 1) {
+	*		lFront.set(1);
+    *    	lBack.set(1);
+    *    	rFront.set(1);
+    *    	rBack.set(1);
+	*	}
+	*	Timer.delay(0.3);
+	*	lFront.set(0);
+    *	//lBack.set(0);
+    *	rFront.set(0);
+    *	rBack.set(0);
+	*}
 	*/
 
     
@@ -422,20 +422,6 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         
     }
-    
-    
-    /*
-     * hey fam it's our error message:
-     * ERROR  1  ERROR Unhandled exception:
-     * 
-     * java.nio.BufferUnderflowException at  [java.nio.DirectByteBuffer.get(DirectByteBuffer.java:271),
-     * java.nio.ByteBuffer.get(ByteBuffer.java:715), edu.wpi.first.wpilibj.I2C.transaction(I2C.java:84), 
-     * 
-     *  org.usfirst.frc5974.Preseason.Robot.teleopPeriodic(Robot.java:424),
-     *  edu.wpi.first.wpilibj.IterativeRobot.startCompetition(IterativeRobot.java:130), 
-     *  edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:247)]  
-     *  edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:249)
-     */
     
 
     /**
