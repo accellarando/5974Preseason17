@@ -394,10 +394,6 @@ public class Robot extends IterativeRobot {
     		rFront.set(1);
     		lBack.set(1);
     		rBack.set(1);
-<<<<<<< HEAD
-=======
-    		Timer.delay(0.3);//replace with gyro data at some point
->>>>>>> b8ebe3e35aa6e5b4abe676c6d3ac40d57bbea4a9
     		turning = false;
     	}
     	//if bumper right turn right
@@ -407,10 +403,6 @@ public class Robot extends IterativeRobot {
     		rFront.set(-1);
     		lBack.set(-1);
     		rBack.set(-1);
-<<<<<<< HEAD
-=======
-    		Timer.delay(0.3);//do a gyro
->>>>>>> b8ebe3e35aa6e5b4abe676c6d3ac40d57bbea4a9
     		turning = false;
     	}
     	//drive code
