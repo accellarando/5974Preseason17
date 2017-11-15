@@ -421,7 +421,7 @@ public class Robot extends IterativeRobot {
     	byte[] receive = new byte[8];
     	if(ButtonA){
     		//System.out.println(i2c.read(8, 1, receive));
-    		i2c.transaction(receive, 8, receive, 1);
+    		i2c.transaction(8,1);
     		System.out.println(receive);
     	}  }
     /*
