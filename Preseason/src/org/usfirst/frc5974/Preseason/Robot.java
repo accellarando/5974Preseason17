@@ -64,10 +64,8 @@ public class Robot extends IterativeRobot {
 	 * double HeadingZ;
 	 * 
 	 * Meant to measure the distance to magnetic north. With a gyroscope, apparently.
-	 * 
-	 * This is entirely useless, why code it in the first place? -JavaGreenhorn.
 	 * @JavaGreenhorn this stuff was for the ADIS16448 IMU that we have. 
-	 * In addition to gyro, it also contains compass, accelerometer, altimeter, thermometer, and like some other stuff I think
+	 * In addition to gyro, it also contains a compass, accelerometer, altimeter, thermometer, and like some other stuff I think
 	 * 
 	 */
 	
@@ -76,7 +74,7 @@ public class Robot extends IterativeRobot {
 	 * double AccelY; 	Gyroscope value for Y-Axis Rotation
 	 * double AccelZ; 	Gyroscope value for Z-Axis Rotation
 	 * 
-	 * Meant to gauge acceleration, with a gyroscope we don't have.
+	 * Meant to gauge acceleration, with a gyroscope we don't have set up.
 	 */
 	
 	/*
@@ -84,7 +82,7 @@ public class Robot extends IterativeRobot {
 	 * double RateY;
 	 * double RateZ;
 	 * 
-	 * Measures the R.P.M. of each axis, with a gyroscope we don't have.
+	 * Measures the R.P.M. of each axis, with a gyroscope we don't have set up.
 	 */
 	
 	/*
@@ -99,7 +97,7 @@ public class Robot extends IterativeRobot {
 	 *double Yaw;		Gyroscope value for Y-Axis Rotation
 	 *double Roll;		Gyroscope value for Z-Axis Rotation
 	 *
-	 * We don't have a gyroscope. If we install one, Aiming/stabilization, perhaps?
+	 * We don't have a gyroscope set up. If we install one, Aiming/stabilization, perhaps?
 	 */
 	
 	//double Angle; *Completely Unused.*
@@ -109,7 +107,7 @@ public class Robot extends IterativeRobot {
 	 * double AngleY;
 	 * double AngleZ;
 	 * 
-	 * Meant to measure the rotation value of the gyroscope, which we don't have.
+	 * Meant to measure the rotation value of the gyroscope, which we're not using.
 	 */
 	
 	//double distZ; *Distance measurement, meant to be used without tele-op.*
@@ -179,10 +177,16 @@ public class Robot extends IterativeRobot {
 		ButtonY = masterRemote.getRawButton(4);
 		ButtonStart = masterRemote.getRawButton(8);
 		ButtonBack = masterRemote.getRawButton(7);
-//		dPadd = masterRemote.getRawButton(13);
-//		dPadu = masterRemote.getRawButton(12);
-//		dPadl = masterRemote.getRawButton(14);
-//		dPadr = masterRemote.getRawButton(15);
+		
+		/*
+		 * dPadd = masterRemote.getRawButton(13);
+		 * dPadu = masterRemote.getRawButton(12);
+		 * dPadl = masterRemote.getRawButton(14);
+		 * dPadr = masterRemote.getRawButton(15);
+		 * 
+		 * dPad doesn't seem to like "RawButton". Commented out until we need it. -JavaGreenhorn
+		 * dPadl(eft) was meant to toggle fastmode, other buttons have no planned purpose (yet).
+		 */	
 		
 	}
 	
@@ -323,10 +327,9 @@ public class Robot extends IterativeRobot {
 		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     }
 
-   /* 
-    * This twitchTurn thing breaks our drive code.
-    * I have no idea what this code is for, so I vote we just delete it, 
-    * unless it's going to do something useful.
+   /*  
+    * Might move to Autonomous later, no use for it now, already have tele-op drive. -JavaGreenhorn
+    * 
     * public void twitchTurn(int turnTo) { 
 		if (turnTo < 0) {
 			lFront.set(-1);
@@ -388,7 +391,7 @@ public class Robot extends IterativeRobot {
     	clamp.set(TriggerLeft);
     	
     	if (ButtonY) {
-    		String WriteString = "underflow?";
+    		String WriteString = "underflow";
     		char[] CharArray = WriteString.toCharArray();
     		byte[] WriteData = new byte[CharArray.length];
     		for (int i = 0; i < CharArray.length; i++) {
@@ -398,30 +401,40 @@ public class Robot extends IterativeRobot {
     		i2c.transaction(WriteData, WriteData.length, null, 0);
     	
     	}  
-    	if (TriggerLeft>0) {
-    		byte[] triggerSend = {'L',triggerLeft};
-    		i2c.transaction(triggerSend, 2, null, 0);
+	    	if (TriggerLeft>0) {
+	    		byte[] triggerSend = {'L',triggerLeft};
+	    		i2c.transaction(triggerSend, 2, null, 0);
+	    	
+	    	}
+	    	if (TriggerRight>0) {
+	    		byte[] triggerSend = {'R',triggerRight};
+	    		i2c.transaction(triggerSend, 2, null, 0);
+	    	
+	    	}
     	
-    	}
-    	if (TriggerRight>0) {
-    		byte[] triggerSend = {'R',triggerRight};
-    		i2c.transaction(triggerSend, 2, null, 0);
-    	
-    	}
-    	
+	    	byte[] receive = new byte[1];
+	    	if(ButtonA){
+	    		System.out.println(i2c.read(8, 1, receive));
+	    	}  
+	    	
+	    	
         Scheduler.getInstance().run();
-    	
-    	byte[] receive = new byte[8];
-    	if(ButtonA){
-    		//System.out.println(i2c.read(8, 1, receive));
-    		i2c.transaction(8,1);
-    		System.out.println(receive);
-    	}  }
+        
+    }
+    
+    
     /*
      * hey fam it's our error message:
-     * ERROR  1  ERROR Unhandled exception: java.nio.BufferUnderflowException at [java.nio.DirectByteBuffer.get(DirectByteBuffer.java:271), java.nio.ByteBuffer.get(ByteBuffer.java:715), edu.wpi.first.wpilibj.I2C.transaction(I2C.java:84), org.usfirst.frc5974.Preseason.Robot.teleopPeriodic(Robot.java:424), edu.wpi.first.wpilibj.IterativeRobot.startCompetition(IterativeRobot.java:130), edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:247)]  edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:249)
+     * ERROR  1  ERROR Unhandled exception:
+     * 
+     * java.nio.BufferUnderflowException at  [java.nio.DirectByteBuffer.get(DirectByteBuffer.java:271),
+     * java.nio.ByteBuffer.get(ByteBuffer.java:715), edu.wpi.first.wpilibj.I2C.transaction(I2C.java:84), 
+     * 
+     *  org.usfirst.frc5974.Preseason.Robot.teleopPeriodic(Robot.java:424),
+     *  edu.wpi.first.wpilibj.IterativeRobot.startCompetition(IterativeRobot.java:130), 
+     *  edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:247)]  
+     *  edu.wpi.first.wpilibj.RobotBase.main(RobotBase.java:249)
      */
-        
     
 
     /**
