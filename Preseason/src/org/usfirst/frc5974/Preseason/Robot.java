@@ -331,24 +331,24 @@ public class Robot extends IterativeRobot {
     * Might move to Autonomous later, no use for it now, already have tele-op drive. -JavaGreenhorn
     * 
     * public void twitchTurn(int turnTo) { 
-		if (turnTo < 0) {
-			lFront.set(-1);
-        	lBack.set(-1);
-        	rFront.set(-1);
-        	rBack.set(-1);
-		}
-		if (turnTo > 1) {
-			lFront.set(1);
-        	lBack.set(1);
-        	rFront.set(1);
-        	rBack.set(1);
-		}
-		Timer.delay(0.3);
-		lFront.set(0);
-    	//lBack.set(0);
-    	rFront.set(0);
-    	rBack.set(0);
-	}
+	*	if (turnTo < 0) {
+	*		lFront.set(-1);
+    *   	lBack.set(-1);
+    *    	rFront.set(-1);
+    *    	rBack.set(-1);
+	*	}
+	*	if (turnTo > 1) {
+	*		lFront.set(1);
+    *    	lBack.set(1);
+    *    	rFront.set(1);
+    *    	rBack.set(1);
+	*	}
+	*	Timer.delay(0.3);
+	*	lFront.set(0);
+    *	//lBack.set(0);
+    *	rFront.set(0);
+    *	rBack.set(0);
+	*}
 	*/
 
     
@@ -414,7 +414,8 @@ public class Robot extends IterativeRobot {
     	
 	    	byte[] receive = new byte[1];
 	    	if(ButtonA){
-	    		System.out.println(i2c.read(8, 1, receive));
+	    		i2c.read(8, 1, receive);
+	    		System.out.println(receive[0]);
 	    	}  
 	    	
 	    	
