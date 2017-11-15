@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.AnalogGyro;
 
 //don't change the name of this class
 public class Robot extends IterativeRobot {
@@ -29,6 +30,7 @@ public class Robot extends IterativeRobot {
 	Spark lFront = new Spark(2);
 	Spark clamp = new Spark(4);
 	I2C i2c;
+	AnalogGyro gyro = new AnalogGyro(1);
 	byte[] receiveData = new byte[1];
 	
 	// Stolen code from last year, reformatting if possible?
@@ -56,6 +58,7 @@ public class Robot extends IterativeRobot {
 	boolean dPadu;
 	boolean dPadl;
 	boolean dPadr;
+	double angle;
 	//The IMU/10 degrees of freedom
 	
 	/*
@@ -127,7 +130,7 @@ public class Robot extends IterativeRobot {
 	boolean JoyRightToggle = false;
 	
 	public void updateAll(){
-		
+		angle = gyro.getAngle();
 		updateController();
 		//updateSensors();
 	}
@@ -462,6 +465,10 @@ public class Robot extends IterativeRobot {
     	 
         Scheduler.getInstance().run();
     	
+        if (ButtonB){
+        	System.out.println(angle);
+        }
+        
     }
     
 
