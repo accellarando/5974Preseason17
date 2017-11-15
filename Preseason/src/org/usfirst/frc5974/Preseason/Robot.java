@@ -459,12 +459,7 @@ public class Robot extends IterativeRobot {
     		i2c.transaction(triggerSend, 2, receiveData, 1);
     		System.out.println(receiveData[0]);
     	}
-    	
-	    byte[] receive = new byte[1];
-	    if(ButtonA){
-	    	i2c.read(8, 1, receive);
-	    	System.out.println(receive[0]);
-	    }  
+    	 
         Scheduler.getInstance().run();
     	
     }
