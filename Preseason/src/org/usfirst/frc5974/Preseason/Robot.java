@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 
 //don't change the name of this class
 public class Robot extends IterativeRobot {
+	ADIS16448_IMU nav;
 	Joystick masterRemote;
 	Timer Time = new Timer();
 	CameraServer camera;
@@ -60,6 +61,9 @@ public class Robot extends IterativeRobot {
 	boolean dPadr;
 	double angle;
 	//The IMU/10 degrees of freedom
+	double AngleX;
+	double AngleY;
+	double AngleZ;
 	
 	/*
 	 * double HeadingX;
@@ -465,8 +469,8 @@ public class Robot extends IterativeRobot {
     	 
         Scheduler.getInstance().run();
     	
-        if (ButtonB){
-        	System.out.println(angle);
+        if (ButtonX){
+        	System.out.println("Gyroscope says: "+gyro.getAngle());
         }
         
     }
