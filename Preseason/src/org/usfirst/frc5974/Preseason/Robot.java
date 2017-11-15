@@ -67,6 +67,8 @@ public class Robot extends IterativeRobot {
 	double HeadingX;
 	double HeadingY;
 	double HeadingZ;
+	boolean turning = false;
+	boolean disabled = false;
 	
 	/*
 	 * double HeadingX;
@@ -272,7 +274,6 @@ public class Robot extends IterativeRobot {
 		updateRate();
 		updateRotations();
 		updateAngles();
-		updateWeather();
 	}*/
 	
 	
@@ -308,10 +309,15 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-
+    	driveSpeed = 0;
+    	disabled = true;
     }
 
     public void disabledPeriodic() {
+    	
+    	Timer.delay(10);
+    	disabled = false;
+    	
         Scheduler.getInstance().run();
     }
 
@@ -342,97 +348,91 @@ public class Robot extends IterativeRobot {
 		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
 		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
     }
-
-   /* 
-    * This twitchTurn thing breaks our drive code.
-    * I have no idea what this code is for, so I vote we just delete it, 
-    * unless it's going to do something useful.
-    * public void twitchTurn(int turnTo) { 
-<<<<<<< HEAD
-		if (turnTo < 0) {
-			lFront.set(-1);
-        	lBack.set(-1);
-        	rFront.set(-1);
-        	rBack.set(-1);
-		}
-		if (turnTo > 1) {
-			lFront.set(1);
-        	lBack.set(1);
-        	rFront.set(1);
-        	rBack.set(1);
-		}
-		Timer.delay(0.3);
-		lFront.set(0);
-    	lBack.set(0);
-    	rFront.set(0);
-    	rBack.set(0);
-	}
-=======
-	*	if (turnTo < 0) {
-	*		lFront.set(-1);
-    *   	lBack.set(-1);
-    *    	rFront.set(-1);
-    *    	rBack.set(-1);
-	*	}
-	*	if (turnTo > 1) {
-	*		lFront.set(1);
-    *    	lBack.set(1);
-    *    	rFront.set(1);
-    *    	rBack.set(1);
-	*	}
-	*	Timer.delay(0.3);
-	*	lFront.set(0);
-    *	//lBack.set(0);
-    *	rFront.set(0);
-    *	rBack.set(0);
-	*}
->>>>>>> 7158d04335cf99222c896c5d3025a4b1a472ba6c
-	*/
-
     
     public void teleopPeriodic() {
-    	
-    	updateAll();
-    	
-    	boolean lTurn = false;
-    	boolean rTurn = false;
-    	boolean qTurn = false;
-    	
-    	if (qTurn == false & BumperLeft == true) { qTurn = true; lTurn = true;}
-    	
-    	if(lTurn == true) {
-    		lFront.set(1);
-    		rFront.set(1);
-    		lBack.set(1);
-    		rBack.set(1);
-    		Timer.delay(0.3);
-    		lTurn = false;
-    		qTurn = false;
-    	}
-    	
-    	if (qTurn == false & BumperRight == true) { qTurn = true; rTurn = true;}
-    	
-    	if(rTurn == true) {
-    		lFront.set(-1);
-    		rFront.set(-1);
-    		lBack.set(-1);
-    		rBack.set(-1);
-    		Timer.delay(0.3);
-    		rTurn = false;
-    		qTurn = false;
-    	}
-    	
-    	
-    	//twitchTurn(0);
-    	
-    	//Drive speed switcher
-    	if (ButtonB && !fast){
-    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
-        	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
-        	Timer.delay(0.25);
-    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
-    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
-    		fast = true;
+    	if (disabled == false){
+	    	updateAll();
+	    	
+	    	//Drive speed switcher
+	    	if (ButtonB && !fast){
+	    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
+	        	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
+	        	Timer.delay(0.25);
+	    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
+	    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
+	    		fast = true;
+	    	}
+	    	else if (ButtonB && fast){
+	    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
+	        	masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
+	        	Timer.delay(0.25);
+	    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
+	    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
+	    		fast = false;
+	    	}
+	    	if(fast){
+	    		driveSpeed = 1;
+	    	}
+	    	else if(fast == false){
+	    		driveSpeed = 0.5;
+	    	}
+	    	
+	    	//Quik turning
+	    	//if bumber left turn left
+	    	if(BumperLeft) {
+	    		turning = true;
+	    		lFront.set(1);
+	    		rFront.set(1);
+	    		lBack.set(1);
+	    		rBack.set(1);
+	    		Timer.delay(0.3);
+	    		turning = false;
+	    	}
+	    	//if bumper right turn right
+	    	if(BumperRight) {
+	    		turning = true;
+	    		lFront.set(-1);
+	    		rFront.set(-1);
+	    		lBack.set(-1);
+	    		rBack.set(-1);
+	    		Timer.delay(0.3);
+	    		turning = false;
+	    	}
+	    	//drive code
+	    	//if turning dont drive
+	    	if (turning == false) {
+		    	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
+				lBack.set((-1*driveSpeed) * (AxisControlLeftY));
+				rFront.set(driveSpeed * AxisControlRightY);
+				rBack.set(driveSpeed * AxisControlRightY);
+	    	}
+			
+			//Talking to the arduino
+	    	clamp.set(TriggerLeft);
+	         
+	    	//Giving it a speed for the stepper motor and asking it for stuff back
+	    	if (TriggerLeft>0) {
+	    		byte[] triggerSend = {'L',triggerLeft};
+	    		i2c.transaction(triggerSend, 2, receiveData, 1);
+	    		System.out.println(receiveData[0]);
+	    	}
+	    	if (TriggerRight>0) {
+	    		byte[] triggerSend = {'R',triggerRight};
+	    		i2c.transaction(triggerSend, 2, receiveData, 1);
+	    		System.out.println(receiveData[0]);
+	    	}
+	        //asking the gyroscope for its data
+	        if (ButtonX){
+	        	System.out.println("Gyroscope says: "+gyro.getAngle());
+	        	System.out.println("Fancy gyro says:"+nav.getAngle());
+	        }
+	        
+	        //Disable code
+	        if (ButtonY){
+	        	disabled = true;
+	        }
+	        
+	        Scheduler.getInstance().run();
     	}
     	
     	else if (ButtonB && fast){
@@ -454,7 +454,7 @@ public class Robot extends IterativeRobot {
     		driveSpeed = 0.5;
     	}
     	
-    	
+    	boolean qTurn = false;
     	if (qTurn == false) {
     	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
 		lBack.set((-1*driveSpeed) * (AxisControlLeftY));
@@ -491,6 +491,7 @@ public class Robot extends IterativeRobot {
         	System.out.println("Fancy gyro says:"+nav.getAngle()+"\n");
         }
         
+
     }
     
 
