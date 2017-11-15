@@ -384,7 +384,7 @@ public class Robot extends IterativeRobot {
     	}
 		
 		
-    	clamp.set(TriggerLeft);
+    	//clamp.set([some button/joystick]);
          
     	//Quick turning
     	//if bumper left turn left
@@ -394,7 +394,7 @@ public class Robot extends IterativeRobot {
     		rFront.set(1);
     		lBack.set(1);
     		rBack.set(1);
-    		Timer.delay(0.3);
+    		Timer.delay(0.3);//replace with gyro data at some point
     		turning = false;
     	}
     	//if bumper right turn right
@@ -404,21 +404,19 @@ public class Robot extends IterativeRobot {
     		rFront.set(-1);
     		lBack.set(-1);
     		rBack.set(-1);
-    		Timer.delay(0.3);
+    		Timer.delay(0.3);//do a gyro
     		turning = false;
     	}
     	//drive code
-    	//if turning dont drive
+    	//if turning don't drive
     	if (turning == false) {
 	    	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
 			lBack.set((-1*driveSpeed) * (AxisControlLeftY));
 			rFront.set(driveSpeed * AxisControlRightY);
 			rBack.set(driveSpeed * AxisControlRightY);
     	}
-		
-		//Talking to the arduino
-    	clamp.set(TriggerLeft);
-         
+    	
+        //it's arduino time 
     	//Giving it a speed for the stepper motor and asking it for stuff back
 
     	if (TriggerLeft>0) {
@@ -431,10 +429,8 @@ public class Robot extends IterativeRobot {
     		i2c.transaction(triggerSend, 2, receiveData, 1);
     		System.out.println(receiveData[0]);
     	}
-    	 
-        Scheduler.getInstance().run();
     	
-        if (ButtonX){
+        if (ButtonX){//gyro proof of concept
         	while(angle<90.0){
         		lFront.set(-0.5);
         		lBack.set(-0.5);
@@ -450,14 +446,7 @@ public class Robot extends IterativeRobot {
         	}
         	System.out.println("Fancy gyro says:"+nav.getAngle()+"\n");
         }
-        
 
-
-        //asking the gyroscope for its data
-        if (ButtonX){
-        	System.out.println("Gyroscope says: "+gyro.getAngle());
-        	System.out.println("Fancy gyro says:"+nav.getAngle());
-        }
         
         Scheduler.getInstance().run();
 
