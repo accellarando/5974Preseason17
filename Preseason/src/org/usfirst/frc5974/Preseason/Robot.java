@@ -342,7 +342,7 @@ public class Robot extends IterativeRobot {
 		}
 		Timer.delay(0.3);
 		lFront.set(0);
-    	//lBack.set(0);
+    	lBack.set(0);
     	rFront.set(0);
     	rBack.set(0);
 	}
@@ -411,10 +411,10 @@ public class Robot extends IterativeRobot {
     	
         Scheduler.getInstance().run();
     	
-    	byte[] receive = new byte[8];
+    	byte[] receive = new byte[1];
     	if(ButtonA){
     		//System.out.println(i2c.read(8, 1, receive));
-    		i2c.transaction(8,1);
+    		i2c.read(8, 1, receive);
     		System.out.println(receive);
     	}  }
     /*
