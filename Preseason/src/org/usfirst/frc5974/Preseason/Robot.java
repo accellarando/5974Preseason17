@@ -342,8 +342,6 @@ public class Robot extends IterativeRobot {
 		rBack.set(driveSpeed * AxisControlRightY);
     	}
 		
-		
-    	//clamp.set([some button/joystick]);
          
     	//Quick turning
     	//if bumper left turn left
@@ -393,6 +391,13 @@ public class Robot extends IterativeRobot {
 	    	SmartDashboard.putNumber("Arduino heading", (double)heading[0]);
     	}
     	
+    	if (ButtonStart){
+    		clamp.set(0.5);
+    	}
+    	
+    	if (ButtonBack){
+    		clamp.set(-0.5);
+    	}
     	
         //if (ButtonX){//gyro proof of concept
         	/*while(angle < angle+90.0){
