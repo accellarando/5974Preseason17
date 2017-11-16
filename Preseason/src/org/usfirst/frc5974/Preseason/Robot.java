@@ -385,6 +385,11 @@ public class Robot extends IterativeRobot {
     		System.out.println(receiveData[0]);
     	}
     	
+    	else if (TriggerRight==0 && TriggerLeft==0){
+    		byte[] triggerSend = {0};
+    		i2c.transaction(triggerSend, 1, null, 0);
+    	}
+    	
     	if (ButtonX){
 	    	byte[] requestX = {'x'};
 	    	i2c.transaction(requestX, 1, heading, 1);
@@ -397,6 +402,10 @@ public class Robot extends IterativeRobot {
     	
     	if (ButtonBack){
     		clamp.set(-0.5);
+    	}
+    	
+    	if (ButtonY){
+    		solenoid.set(0.5);
     	}
     	
         //if (ButtonX){//gyro proof of concept
