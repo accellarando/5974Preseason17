@@ -410,6 +410,10 @@ public class Robot extends IterativeRobot {
     		solenoid.set(Relay.Value.kForward);
     	}
     	
+    	if (ButtonA){
+    		solenoid.set(Relay.Value.kReverse);
+    	}
+    	
         //if (ButtonX){//gyro proof of concept
         	/*while(angle < angle+90.0){
         		lFront.set(-0.5);
