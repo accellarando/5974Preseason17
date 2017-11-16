@@ -59,9 +59,9 @@ public class Robot extends IterativeRobot {
 	boolean dPadu;
 	boolean dPadl;
 	boolean dPadr;
-	byte[] angle = {0,0};
-	byte[] ardX = {0};
-	byte[] ardY = {0};
+	byte[] heading = {0};
+	//byte[] ardX = {0};
+	//byte[] ardY = {0};
 	//The IMU/10 degrees of freedom
 	/*double AngleX;
 	double AngleY;
@@ -387,16 +387,11 @@ public class Robot extends IterativeRobot {
     	}
     	
     	if (ButtonX){
-    	byte[] requestX = {'x'};
-    	i2c.transaction(requestX, 1, angle, 1);
-    	SmartDashboard.putNumber("Arduino X", (double)angle[0]);
+	    	byte[] requestX = {'x'};
+	    	i2c.transaction(requestX, 1, heading, 1);
+	    	SmartDashboard.putNumber("Arduino heading", (double)heading[0]);
     	}
     	
-    	if (ButtonY){
-    		byte[] requestY = {'y'};
-    		i2c.transaction(requestY, 1, ardY, 1);
-    		SmartDashboard.putNumber("Arduino Y", (double)ardY[0]);
-    	}
     	
         //if (ButtonX){//gyro proof of concept
         	/*while(angle < angle+90.0){
