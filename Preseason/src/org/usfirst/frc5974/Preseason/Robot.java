@@ -152,7 +152,7 @@ public class Robot extends IterativeRobot {
 		 * dPadr = masterRemote.getRawButton(15);
 		 * 
 		 * dPad doesn't seem to like "RawButton". Commented out until we need it. -JavaGreenhorn
-		 * dPadl(eft) was meant to toggle fastmode, other buttons have no planned purpose (yet).
+		 * dPadl(eft) was meant to towggle fastmode, other buttons have no planned purpose (yet).
 		 */	
 		
 	}
