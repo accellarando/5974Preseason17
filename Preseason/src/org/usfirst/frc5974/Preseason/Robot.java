@@ -30,11 +30,11 @@ public class Robot extends IterativeRobot {
 	Spark rFront = new Spark(1);
 	Spark lBack = new Spark(0);
 	Spark lFront = new Spark(2);
-	Spark clamp = new Spark(4);
+	Spark clamp = new Spark(5);
 	//Spark solenoid = new Spark(5); oKAY FINE WE WON'T SPARK THE SOLENOID
 	I2C i2c;
 	AnalogGyro gyro = new AnalogGyro(1);
-	Relay solenoid = new Relay(5);  //i hope you're happy eric
+	Relay solenoid = new Relay(4);  //i hope you're happy eric
 	byte[] receiveData = new byte[1];
 	
 	// Stolen code from last year, reformatting if possible?
@@ -406,13 +406,13 @@ public class Robot extends IterativeRobot {
     		clamp.set(-0.5);
     	}
     	
-    	if (ButtonY){
+    	/*if (ButtonY){
     		solenoid.set(Relay.Value.kForward);
     	}
     	
     	if (ButtonA){
     		solenoid.set(Relay.Value.kReverse);
-    	}
+    	}*/
     	
         //if (ButtonX){//gyro proof of concept
         	/*while(angle < angle+90.0){
