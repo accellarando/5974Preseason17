@@ -59,7 +59,7 @@ public class Robot extends IterativeRobot {
 	boolean dPadu;
 	boolean dPadl;
 	boolean dPadr;
-	double angle;
+	byte[] angle = {0};
 	//The IMU/10 degrees of freedom
 	/*double AngleX;
 	double AngleY;
@@ -384,7 +384,11 @@ public class Robot extends IterativeRobot {
     		System.out.println(receiveData[0]);
     	}
     	
-        if (ButtonX){//gyro proof of concept
+    	byte[] requestAngle = {5};
+    	i2c.transaction(requestAngle, 1, angle, 1);
+    	System.out.println("arduino reports:"+angle);
+    	
+        //if (ButtonX){//gyro proof of concept
         	/*while(angle < angle+90.0){
         		lFront.set(-0.5);
         		lBack.set(-0.5);
@@ -399,7 +403,7 @@ public class Robot extends IterativeRobot {
         		}
         	}*/
 //        	System.out.println("Fancy gyro says:"+nav.getAngle()+"\n");
-        }
+        //}
 
         
         Scheduler.getInstance().run();
