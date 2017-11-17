@@ -34,7 +34,7 @@ public class Robot extends IterativeRobot {
 	//Spark solenoid = new Spark(5); oKAY FINE WE WON'T SPARK THE SOLENOID
 	I2C i2c;
 	AnalogGyro gyro = new AnalogGyro(1);
-	Relay solenoid = new Relay(4);  //i hope you're happy eric
+	Relay solenoid = new Relay(0);  //i hope you're happy eric
 	byte[] receiveData = new byte[1];
 	
 	// Stolen code from last year, reformatting if possible?
