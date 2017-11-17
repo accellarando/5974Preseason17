@@ -26,8 +26,8 @@ void setup() {
   {
     Serial.println("Failed to autodetect gyro type!");
     while (1);
-  }
 
+  }
   gyro.enableDefault();
 }
 
