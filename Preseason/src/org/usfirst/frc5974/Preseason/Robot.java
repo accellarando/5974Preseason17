@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.Relay;
 
 //don't change the name of this class
 public class Robot extends IterativeRobot {
@@ -29,10 +30,11 @@ public class Robot extends IterativeRobot {
 	Spark rFront = new Spark(1);
 	Spark lBack = new Spark(0);
 	Spark lFront = new Spark(2);
-	Spark clamp = new Spark(4);
-	Spark solenoid = new Spark(5);
+	Spark clamp = new Spark(5);
+	//Spark solenoid = new Spark(5); oKAY FINE WE WON'T SPARK THE SOLENOID
 	I2C i2c;
 	AnalogGyro gyro = new AnalogGyro(1);
+	Relay solenoid = new Relay(0);  //i hope you're happy eric
 	byte[] receiveData = new byte[1];
 	
 	// Stolen code from last year, reformatting if possible?
@@ -385,6 +387,11 @@ public class Robot extends IterativeRobot {
     		System.out.println(receiveData[0]);
     	}
     	
+    	else if (TriggerRight==0 && TriggerLeft==0){
+    		byte[] triggerSend = {0};
+    		i2c.transaction(triggerSend, 1, null, 0);
+    	}
+    	
     	if (ButtonX){
 	    	byte[] requestX = {'x'};
 	    	i2c.transaction(requestX, 1, heading, 1);
@@ -398,6 +405,14 @@ public class Robot extends IterativeRobot {
     	if (ButtonBack){
     		clamp.set(-0.5);
     	}
+    	
+    	/*if (ButtonY){
+    		solenoid.set(Relay.Value.kForward);
+    	}
+    	
+    	if (ButtonA){
+    		solenoid.set(Relay.Value.kReverse);
+    	}*/
     	
         //if (ButtonX){//gyro proof of concept
         	/*while(angle < angle+90.0){
