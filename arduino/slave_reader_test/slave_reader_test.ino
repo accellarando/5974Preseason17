@@ -2,10 +2,12 @@
 #include <Wire.h>
 
 void requestEvent();
-char duck;
+char ducc;
+int spped
 void setup() {
   Wire.begin(8);
   Wire.onReceive(recieveEvent);
+  Wire.onReceive(updateStep);
   Wire.onRequest(requestEvent);
   Serial.begin(9600);
 }
@@ -21,21 +23,29 @@ void recieveEvent(int howMany) {
     }
   int x = Wire.read();
   Serial.println(x);
-  duck = c;
-  Serial.println(duck);
+  ducc = c;
+  spped = x;
   }
 
 
 void requestEvent() {
-  if (duck == 'L'){
+  if (ducc == 'L'){
     Wire.write(0);
     }
-  else if (duck == 'R'){
+  else if (ducc == 'R'){
     Wire.write(1);
     } 
    else {
    Wire.write(2);
     }
+}
+
+void updateStep(){
+  int stepp = 1;
+  if(ducc == 'L'){
+    stepp*(-1)
+  }
+  else
 }
 
 
