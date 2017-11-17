@@ -33,13 +33,13 @@ void setup() {
 
 void loop() {
   gyro.read();
-  Serial.println((int)gyro.g.x);
+  Serial.println((int)gyro.g.x*0.036);
   Serial.print("X: ");
-  Serial.print((int)gyro.g.x);
+  Serial.print((int)gyro.g.x*0.036);
   Serial.print(" Y: ");
-  Serial.print((int)gyro.g.y);
+  Serial.print((int)gyro.g.y*0.036);
   Serial.print(" Z: ");
-  Serial.println((int)gyro.g.z);
+  Serial.println((int)gyro.g.z*0.036);
 
   delay(1000);
 }
