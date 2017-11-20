@@ -41,7 +41,6 @@ public class Robot extends IterativeRobot {
 	// Stolen code from last year, reformatting if possible?
 	double AxisControlLeftX = 0;
 	double AxisControlLeftY = 0;
-	double AxisControlLeftY = 0;
 	double AxisControlRightX = 0;
 	double AxisControlRightY = 0;
 	boolean fast = false;
@@ -313,6 +312,7 @@ public class Robot extends IterativeRobot {
     		clamp.set(0.5); //close the claw
     		Timer.delay(0.5);
     		clamp.set(0);
+    		processStep += 1;
     	}
     	
         Scheduler.getInstance().run();
@@ -379,30 +379,24 @@ public class Robot extends IterativeRobot {
     	//Quick turning
     	//if bumper left turn left
     	if(BumperLeft) {
-    		turning = true;
-    		lFront.set(1);
+    		//lFront.set(1);
+    		//lBack.set(1);
     		rFront.set(1);
-    		lBack.set(1);
     		rBack.set(1);
-    		turning = false;
     	}
     	//if bumper right turn right
     	if(BumperRight) {
-    		turning = true;
-    		lFront.set(-1);
-    		rFront.set(-1);
-    		lBack.set(-1);
-    		rBack.set(-1);
-    		turning = false;
+    		//lFront.set(-1);
+    		//lBack.set(1);
+    		rFront.set(1);
+    		rBack.set(1);
     	}
     	//drive code
     	//if turning don't drive
-    	if (turning == false) {
 	    	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
 			lBack.set((-1*driveSpeed) * (AxisControlLeftY));
 			rFront.set(driveSpeed * AxisControlRightY);
 			rBack.set(driveSpeed * AxisControlRightY);
-    	}
     	
         //it's arduino time 
     	//Giving it a speed for the stepper motor and asking it for stuff back
