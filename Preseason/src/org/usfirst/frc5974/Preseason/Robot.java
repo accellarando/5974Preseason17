@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.PWM;
-import edu.wpi.first.wpilibj.Solenoid; 
+import edu.wpi.first.wpilibj.DoubleSolenoid; 
 
 //don't change the name of this class
 public class Robot extends IterativeRobot {
@@ -36,6 +36,7 @@ public class Robot extends IterativeRobot {
 	AnalogGyro gyro = new AnalogGyro(1);
 	Relay solenoid = new Relay(3);
 	Spark clamp = new Spark(4);
+	DoubleSolenoid airSolenoid = new DoubleSolenoid(0,1);
 	byte[] receiveData = new byte[1];
 	
 	// Stolen code from last year, reformatting if possible?
@@ -442,12 +443,15 @@ public class Robot extends IterativeRobot {
     		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
     		solenoid.set(Relay.Value.kReverse);
     		solenoid.set(Relay.Value.kOn);
+    		airSolenoid.set(DoubleSolenoid.Value.kForward);
+    		Timer.delay(0.1);
+    		airSolenoid.set(DoubleSolenoid.Value.kReverse);
 
-    		
     	}
     	else{
     		solenoid.set(Relay.Value.kForward);
     		solenoid.set(Relay.Value.kOff);
+    		airSolenoid.set(DoubleSolenoid.Value.kOff);
     	}
     	
         //if (ButtonX){//gyro proof of concept
