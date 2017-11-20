@@ -406,6 +406,7 @@ public class Robot extends IterativeRobot {
     		i2c.transaction(triggerSend, 2, receiveData, 1);
     		System.out.println(receiveData[0]);
     	}
+    	
     	if (TriggerRight>0) {
     		byte[] triggerSend = {'R',triggerRight};
     		i2c.transaction(triggerSend, 2, receiveData, 1);
@@ -436,11 +437,6 @@ public class Robot extends IterativeRobot {
     	}
     	
     	if (ButtonY){
-    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
-    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
-    		Timer.delay(0.25);
-    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
-    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
     		solenoid.set(Relay.Value.kReverse);
     		solenoid.set(Relay.Value.kOn);
     		airSolenoid.set(DoubleSolenoid.Value.kForward);
