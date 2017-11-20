@@ -286,6 +286,27 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+    	/* 1. Go like 40 feet
+    	 * 2. Attempt to grab the flag
+    	 * 3. Stay there, wait for humans to take over
+    	 */
+    	//go forward, except we're starting out backwards.
+    	//so go backwards
+    	rBack.set(-0.5);
+    	rFront.set(-0.5);
+    	lBack.set(0.5);
+    	lFront.set(0.5);
+    	Timer.delay(8);//change with actual value once we know it
+    	rBack.set(0);
+    	rFront.set(0);
+    	lBack.set(0);
+    	lFront.set(0);
+    	
+    	//Attempt to grab the flag
+    	clamp.set(0.5);
+    	Timer.delay(0.5);
+    	clamp.set(0);
+    	
         Scheduler.getInstance().run();
     }
 
