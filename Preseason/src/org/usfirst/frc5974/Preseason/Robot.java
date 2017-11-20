@@ -98,6 +98,7 @@ public class Robot extends IterativeRobot {
 	double velY = 0;
 	double distX;
 	double distY;
+	double distY;
 	double startPosition;
 	boolean XPressed = false;
 	boolean JoyRightToggle = false;
@@ -410,17 +411,17 @@ public class Robot extends IterativeRobot {
     	}
     	
     	if (ButtonY){
+    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
+    		Timer.delay(0.25);
+    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
     		solenoid.set(Relay.Value.kReverse);
     		solenoid.set(Relay.Value.kOn);
 
     		
     	}
     	else{//idk really what this is for, probably just delete it
-    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
-    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
-    		Timer.delay(0.25);
-    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
-    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
     		solenoid.set(Relay.Value.kForward);
     		solenoid.set(Relay.Value.kOff);
     	}
