@@ -34,8 +34,8 @@ public class Robot extends IterativeRobot {
 	Spark lFront = new Spark(2);
 	I2C i2c;
 	AnalogGyro gyro = new AnalogGyro(1);
-	Relay solenoid = new Relay(5);
-	Spark clamp = new Spark(5);
+	Relay solenoid = new Relay(3);
+	Spark clamp = new Spark(4);
 	byte[] receiveData = new byte[1];
 	
 	// Stolen code from last year, reformatting if possible?
@@ -402,10 +402,14 @@ public class Robot extends IterativeRobot {
     	
     	if (ButtonStart){
     		clamp.set(0.5);
+    		Timer.delay(0.5);
+    		clamp.set(0);
     	}
     	
     	if (ButtonBack){
     		clamp.set(-0.5);
+    		Timer.delay(0.5);
+    		clamp.set(0);
     	}
     	
     	if (ButtonY){
