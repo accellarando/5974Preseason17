@@ -34,8 +34,8 @@ public class Robot extends IterativeRobot {
 	Spark lFront = new Spark(2);
 	I2C i2c;
 	AnalogGyro gyro = new AnalogGyro(1);
-	Relay solenoid = new Relay(5);
-	Spark clamp = new Spark(5);
+	Relay solenoid = new Relay(3);
+	Spark clamp = new Spark(4);
 	byte[] receiveData = new byte[1];
 	
 	// Stolen code from last year, reformatting if possible?
@@ -88,7 +88,7 @@ public class Robot extends IterativeRobot {
 	//double distZ; *Distance measurement, meant to be used without tele-op.*
 	
 
-	int processStep; //a step of a program
+	int processStep = 1; //a step of a program
 	boolean toggleDriveMode = true; 
 	boolean toggleAscenderMode = true;
 	double driveSpeed = .5;
@@ -286,8 +286,36 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+    	/* 1. Go like 40 feet
+    	 * 2. Attempt to grab the flag
+    	 * 3. Stay there, wait for humans to take over
+    	 */
+    	//go forward, except we're starting out backwards.
+    	//so go backwards
+    	if(processStep == 1){
+    		rBack.set(-0.5);
+    		rFront.set(-0.5);
+    		lBack.set(0.5);
+    		lFront.set(0.5);
+    		Timer.delay(8);
+    		rBack.set(0);
+    		rFront.set(0);
+    		lBack.set(0);
+    		lFront.set(0);
+    		processStep += 1;
+    	}
+    	//Attempt to grab the flag
+    	if(processStep == 2){
+    		clamp.set(-0.5); //open the claw
+    		Timer.delay(0.5);
+    		clamp.set(0);
+    		clamp.set(0.5); //close the claw
+    		Timer.delay(0.5);
+    		clamp.set(0);
+    		processStep += 1;
+    	}
+    	
         Scheduler.getInstance().run();
-        /* 1. Go forward 48 feet
     }
 
     public void teleopInit() {
@@ -338,38 +366,28 @@ public class Robot extends IterativeRobot {
     	else if(fast == false){
     		driveSpeed = 0.5;
     	}
-    	
-    	boolean qTurn = false;
-    	if (qTurn == false) {
-    	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
-		lBack.set((-1*driveSpeed) * (AxisControlLeftY));
-		rFront.set(driveSpeed * AxisControlRightY);
-		rBack.set(driveSpeed * AxisControlRightY);
-    	}
-		
          
     	//Quick turning
     	//if bumper left turn left
     	if(BumperLeft) {
     		turning = true;
-    		lFront.set(1);
-    		rFront.set(1);
-    		lBack.set(1);
-    		rBack.set(1);
+    		//lFront.set(1);
+    		//lBack.set(1);
+    		rFront.set(0.5);
+    		rBack.set(0.5);
     		turning = false;
     	}
     	//if bumper right turn right
     	if(BumperRight) {
     		turning = true;
-    		lFront.set(-1);
+    		//lFront.set(-1);
+    		//lBack.set(-1);
     		rFront.set(-1);
-    		lBack.set(-1);
     		rBack.set(-1);
     		turning = false;
     	}
-    	//drive code
-    	//if turning don't drive
-    	if (turning == false) {
+    	
+    	if(turning==false){
 	    	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
 			lBack.set((-1*driveSpeed) * (AxisControlLeftY));
 			rFront.set(driveSpeed * AxisControlRightY);
@@ -403,10 +421,14 @@ public class Robot extends IterativeRobot {
     	
     	if (ButtonStart){
     		clamp.set(0.5);
+    		Timer.delay(0.5);
+    		clamp.set(0);
     	}
     	
     	if (ButtonBack){
     		clamp.set(-0.5);
+    		Timer.delay(0.5);
+    		clamp.set(0);
     	}
     	
     	if (ButtonY){
