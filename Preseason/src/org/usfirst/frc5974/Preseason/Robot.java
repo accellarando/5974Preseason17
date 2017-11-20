@@ -97,7 +97,6 @@ public class Robot extends IterativeRobot {
 	double velY = 0;
 	double distX;
 	double distY;
-	double distY;
 	double startPosition;
 	boolean XPressed = false;
 	boolean JoyRightToggle = false;
