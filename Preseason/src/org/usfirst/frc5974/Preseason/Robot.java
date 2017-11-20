@@ -287,6 +287,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        /* 1. Go forward 48 feet
     }
 
     public void teleopInit() {
@@ -417,9 +418,8 @@ public class Robot extends IterativeRobot {
     		solenoid.set(Relay.Value.kReverse);
     		solenoid.set(Relay.Value.kOn);
 
-    		
     	}
-    	else{//idk really what this is for, probably just delete it
+    	else{
     		solenoid.set(Relay.Value.kForward);
     		solenoid.set(Relay.Value.kOff);
     	}
