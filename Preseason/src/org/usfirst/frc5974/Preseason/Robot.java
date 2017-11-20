@@ -375,6 +375,8 @@ public class Robot extends IterativeRobot {
     		//lBack.set(1);
     		rFront.set(0.5);
     		rBack.set(0.5);
+    		Timer.delay(0.01);
+    		
     		turning = false;
     	}
     	//if bumper right turn right
@@ -384,6 +386,7 @@ public class Robot extends IterativeRobot {
     		//lBack.set(-1);
     		rFront.set(-1);
     		rBack.set(-1);
+    		Timer.delay(0.01);
     		turning = false;
     	}
     	
