@@ -3,7 +3,9 @@
 
 void requestEvent();
 char ducc;
-int spped
+int motorSpeed = 1;
+Stepper myStepper(200, 8, 9, 10, 11);
+
 void setup() {
   Wire.begin(8);
   Wire.onReceive(recieveEvent);
@@ -24,7 +26,7 @@ void recieveEvent(int howMany) {
   int x = Wire.read();
   Serial.println(x);
   ducc = c;
-  spped = x;
+  motorSpeed = x;
   }
 
 
@@ -41,11 +43,11 @@ void requestEvent() {
 }
 
 void updateStep(){
-  int stepp = 1;
-  if(ducc == 'L'){
-    stepp*(-1)
+  if(ducc == 'L') {
+    motorSpeed = motorSpeed * (-1);
+    }
+  myStepper.setSpeed(motorSpeed);
+  myStepper.step(200/100);
   }
-  else
-}
 
 
