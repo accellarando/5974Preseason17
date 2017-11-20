@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.PWM;
+import edu.wpi.first.wpilibj.Solenoid; 
 
 //don't change the name of this class
 public class Robot extends IterativeRobot {
@@ -30,11 +32,10 @@ public class Robot extends IterativeRobot {
 	Spark rFront = new Spark(1);
 	Spark lBack = new Spark(0);
 	Spark lFront = new Spark(2);
-	Spark clamp = new Spark(5);
-	//Spark solenoid = new Spark(5); oKAY FINE WE WON'T SPARK THE SOLENOID
 	I2C i2c;
 	AnalogGyro gyro = new AnalogGyro(1);
-	Relay solenoid = new Relay(0);  //i hope you're happy eric
+	Relay solenoid = new Relay(5);
+	Spark clamp = new Spark(5);
 	byte[] receiveData = new byte[1];
 	
 	// Stolen code from last year, reformatting if possible?
@@ -82,6 +83,7 @@ public class Robot extends IterativeRobot {
 	double AccelY;
 	double AccelZ;*/
 	boolean turning = false;
+	boolean push = false;
 	
 	//double distZ; *Distance measurement, meant to be used without tele-op.*
 	
@@ -406,13 +408,21 @@ public class Robot extends IterativeRobot {
     		clamp.set(-0.5);
     	}
     	
-    	/*if (ButtonY){
-    		solenoid.set(Relay.Value.kForward);
-    	}
-    	
-    	if (ButtonA){
+    	if (ButtonY){
+    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0.5);
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0.5);
+    		Timer.delay(0.25);
+    		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
+    		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
     		solenoid.set(Relay.Value.kReverse);
-    	}*/
+    		solenoid.set(Relay.Value.kOn);
+
+    		
+    	}
+    	else{//idk really what this is for, probably just delete it
+    		solenoid.set(Relay.Value.kForward);
+    		solenoid.set(Relay.Value.kOff);
+    	}
     	
         //if (ButtonX){//gyro proof of concept
         	/*while(angle < angle+90.0){

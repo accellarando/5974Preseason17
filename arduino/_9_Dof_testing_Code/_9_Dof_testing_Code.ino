@@ -1,5 +1,4 @@
 /*
- * NOTE: This only controls the gyroscope on the 9-DOF
 The sensor outputs provided by the library are the raw 16-bit values
 obtained by concatenating the 8-bit high and low gyro data registers.
 They can be converted to units of dps (degrees per second) using the
@@ -17,7 +16,8 @@ reading of 345 corresponds to 345 * 8.75 = 3020 mdps = 3.02 dps.
 #include <L3G.h>
 
 L3G gyro;
-
+int pos;
+int counter;
 void setup() {
   Serial.begin(9600);
   Wire.begin();
@@ -26,20 +26,34 @@ void setup() {
   {
     Serial.println("Failed to autodetect gyro type!");
     while (1);
-
   }
+
   gyro.enableDefault();
+  
 }
 
 void loop() {
   gyro.read();
-  Serial.println((int)gyro.g.x*0.036);
-  Serial.print("X: ");
-  Serial.print((int)gyro.g.x*0.036);
-  Serial.print(" Y: ");
-  Serial.print((int)gyro.g.y*0.036);
-  Serial.print(" Z: ");
-  Serial.println((int)gyro.g.z*0.036);
 
-  delay(1000);
+  /*Serial.print("G ");
+  Serial.print("X: ");
+  Serial.print((int)gyro.g.x);
+  Serial.print(" Y: ");
+  Serial.print((int)gyro.g.y);
+  Serial.print(" Z: ");*/
+    Serial.println((int)gyro.g.z);
+    Serial.print(':');
+   counter ++;
+   updatepos();
+   delay(1);
 }
+
+void updatepos(){
+  if (counter == 100){
+     counter = 0;
+     pos = (pos + (gyro.g.z/1000.0));
+     pos = pos%3600;
+     Serial.print((int) pos);
+  }
+}
+
