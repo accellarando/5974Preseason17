@@ -1,2 +1,2 @@
 # 5974Preseason17
-A test to see if Git is working and stuff
+The robot code for FRC team 5974, Mechanical Dragons. This is just a preseason Capture the Flag game, to prepare for the 2018 competition.
