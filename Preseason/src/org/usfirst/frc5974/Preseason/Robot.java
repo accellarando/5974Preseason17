@@ -381,15 +381,15 @@ public class Robot extends IterativeRobot {
     	if(BumperLeft) {
     		//lFront.set(1);
     		//lBack.set(1);
-    		rFront.set(1);
-    		rBack.set(1);
+    		rFront.set(0.5);
+    		rBack.set(0.5);
     	}
     	//if bumper right turn right
     	if(BumperRight) {
     		//lFront.set(-1);
-    		//lBack.set(1);
-    		rFront.set(1);
-    		rBack.set(1);
+    		//lBack.set(-1);
+    		rFront.set(-1*driveSpeed);
+    		rBack.set(-1*driveSpeed);
     	}
     	//drive code
     	//if turning don't drive
