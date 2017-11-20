@@ -41,6 +41,7 @@ public class Robot extends IterativeRobot {
 	// Stolen code from last year, reformatting if possible?
 	double AxisControlLeftX = 0;
 	double AxisControlLeftY = 0;
+	double AxisControlLeftY = 0;
 	double AxisControlRightX = 0;
 	double AxisControlRightY = 0;
 	boolean fast = false;
@@ -88,7 +89,7 @@ public class Robot extends IterativeRobot {
 	//double distZ; *Distance measurement, meant to be used without tele-op.*
 	
 
-	int processStep; //a step of a program
+	int processStep = 1; //a step of a program
 	boolean toggleDriveMode = true; 
 	boolean toggleAscenderMode = true;
 	double driveSpeed = .5;
@@ -292,20 +293,27 @@ public class Robot extends IterativeRobot {
     	 */
     	//go forward, except we're starting out backwards.
     	//so go backwards
-    	rBack.set(-0.5);
-    	rFront.set(-0.5);
-    	lBack.set(0.5);
-    	lFront.set(0.5);
-    	Timer.delay(8);//change with actual value once we know it
-    	rBack.set(0);
-    	rFront.set(0);
-    	lBack.set(0);
-    	lFront.set(0);
-    	
+    	if(processStep == 1){
+    		rBack.set(-0.5);
+    		rFront.set(-0.5);
+    		lBack.set(0.5);
+    		lFront.set(0.5);
+    		Timer.delay(8);
+    		rBack.set(0);
+    		rFront.set(0);
+    		lBack.set(0);
+    		lFront.set(0);
+    		processStep += 1;
+    	}
     	//Attempt to grab the flag
-    	clamp.set(0.5);
-    	Timer.delay(0.5);
-    	clamp.set(0);
+    	if(processStep == 2){
+    		clamp.set(-0.5); //open the claw
+    		Timer.delay(0.5);
+    		clamp.set(0);
+    		clamp.set(0.5); //close the claw
+    		Timer.delay(0.5);
+    		clamp.set(0);
+    	}
     	
         Scheduler.getInstance().run();
     }
@@ -444,7 +452,7 @@ public class Robot extends IterativeRobot {
 
     		
     	}
-    	else{//idk really what this is for, probably just delete it
+    	else{
     		solenoid.set(Relay.Value.kForward);
     		solenoid.set(Relay.Value.kOff);
     	}
