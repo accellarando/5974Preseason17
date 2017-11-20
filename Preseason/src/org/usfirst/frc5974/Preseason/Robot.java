@@ -366,37 +366,33 @@ public class Robot extends IterativeRobot {
     	else if(fast == false){
     		driveSpeed = 0.5;
     	}
-    	
-    	boolean qTurn = false;
-    	if (qTurn == false) {
-    	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
-		lBack.set((-1*driveSpeed) * (AxisControlLeftY));
-		rFront.set(driveSpeed * AxisControlRightY);
-		rBack.set(driveSpeed * AxisControlRightY);
-    	}
-		
          
     	//Quick turning
     	//if bumper left turn left
     	if(BumperLeft) {
+    		turning = true;
     		//lFront.set(1);
     		//lBack.set(1);
     		rFront.set(0.5);
     		rBack.set(0.5);
+    		turning = false;
     	}
     	//if bumper right turn right
     	if(BumperRight) {
+    		turning = true;
     		//lFront.set(-1);
     		//lBack.set(-1);
-    		rFront.set(-1*driveSpeed);
-    		rBack.set(-1*driveSpeed);
+    		rFront.set(-1);
+    		rBack.set(-1);
+    		turning = false;
     	}
-    	//drive code
-    	//if turning don't drive
+    	
+    	if(turning==false){
 	    	lFront.set((-1*driveSpeed) * (AxisControlLeftY));
 			lBack.set((-1*driveSpeed) * (AxisControlLeftY));
 			rFront.set(driveSpeed * AxisControlRightY);
 			rBack.set(driveSpeed * AxisControlRightY);
+    	}
     	
         //it's arduino time 
     	//Giving it a speed for the stepper motor and asking it for stuff back
