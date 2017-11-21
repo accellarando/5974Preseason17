@@ -209,15 +209,12 @@ public class Robot extends IterativeRobot {
     	Timer.delay(1);
 		masterRemote.setRumble(Joystick.RumbleType.kRightRumble, 0);
 		masterRemote.setRumble(Joystick.RumbleType.kLeftRumble, 0);
-    }
-    
-	public void fire(){
-		//Fire the solenoid to hit the ping pong ball. put up here for debugging:wq
-		airSolenoid.set(DoubleSolenoid.Value.kForward);
-		Timer.delay(0.1);
 		airSolenoid.set(DoubleSolenoid.Value.kReverse);
-		retracted = false;
-	}
+		Timer.delay(0.1);
+		airSolenoid.set(DoubleSolenoid.Value.kOff);
+		retracted = true;
+    }
+
     public void teleopPeriodic() {
     	updateAll();
     	LiveWindow.run();
@@ -277,33 +274,6 @@ public class Robot extends IterativeRobot {
 					SmartDashboard.putNumber("Arduino heading", (double)heading[0]);
 				}
     	
-    	
-        //it's arduino time 
-    	//Giving it a speed for the stepper motor and asking it for stuff back
-
-    	if (TriggerLeft>0) {
-    		byte[] triggerSend = {'L',triggerLeft};
-    		i2c.transaction(triggerSend, 2, receiveData, 1);
-    		System.out.println(receiveData[0]);
-    	}
-    	
-    	if (TriggerRight>0) {
-    		byte[] triggerSend = {'R',triggerRight};
-    		i2c.transaction(triggerSend, 2, receiveData, 1);
-    		System.out.println(receiveData[0]);
-    	}
-    	
-    	else if (TriggerRight==0 && TriggerLeft==0){
-    		byte[] triggerSend = {0};
-    		i2c.transaction(triggerSend, 1, null, 0);
-    	}
-    	
-    	if (ButtonX){
-	    	byte[] requestX = {'x'};
-	    	i2c.transaction(requestX, 1, heading, 1);
-	    	SmartDashboard.putNumber("Arduino heading", (double)heading[0]);
-    	}
-    	
 		//Clampy boi
 			if (ButtonStart){
 				clamp.set(0.5);
@@ -317,21 +287,20 @@ public class Robot extends IterativeRobot {
 			}
 			
 		//solenoids
-			if (BumperRight){
-				//solenoid.set(Relay.Value.kReverse);
-				//solenoid.set(Relay.Value.kOn);
-				fire();
-			}
-			else if(retracted==false){
-				//solenoid.set(Relay.Value.kForward);
-				//solenoid.set(Relay.Value.kOff);
-				airSolenoid.set(DoubleSolenoid.Value.kReverse);
+			if (BumperRight && retracted == true){
+				airSolenoid.set(DoubleSolenoid.Value.kForward);
 				Timer.delay(0.1);
+				retracted = false;
+			}
+			if (retracted == false){
+				//This way, if it starts up with the solenoid extended, it will pull it back.
+				airSolenoid.set(DoubleSolenoid.Value.kReverse);
+				Timer.delay(0.5); //to prevent rapid fire (and subsequent loss of air pressure)
 				airSolenoid.set(DoubleSolenoid.Value.kOff);
 				retracted = true;
 			}
-		
-		//idk, like a thing
+			
+		//idk just leave it
         Scheduler.getInstance().run();
     }
 
