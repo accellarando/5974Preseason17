@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 //don't change the name of this class
 public class Robot extends IterativeRobot {
-//	ADIS16448_IMU nav;
 	Joystick masterRemote;
 	Timer Time = new Timer();
 	RobotDrive robotdrive;
@@ -31,9 +30,8 @@ public class Robot extends IterativeRobot {
 	Relay solenoid = new Relay(3);
 	Spark clamp = new Spark(4);
 	DoubleSolenoid airSolenoid = new DoubleSolenoid(0,1);
-	byte[] receiveData = new byte[1];
 	
-	// Stolen code from last year, reformatting if possible?
+	byte[] receiveData = new byte[1];
 	double AxisControlLeftX = 0;
 	double AxisControlLeftY = 0;
 	double AxisControlRightX = 0;
@@ -214,13 +212,13 @@ public class Robot extends IterativeRobot {
     }
     
 	public void fire(){
+		//Fire the solenoid to hit the ping pong ball. put up here for debugging:wq
 		airSolenoid.set(DoubleSolenoid.Value.kForward);
 		Timer.delay(0.1);
 		airSolenoid.set(DoubleSolenoid.Value.kReverse);
 		retracted = false;
 	}
     public void teleopPeriodic() {
-    	
     	updateAll();
     	LiveWindow.run();
     	
@@ -279,19 +277,45 @@ public class Robot extends IterativeRobot {
 					SmartDashboard.putNumber("Arduino heading", (double)heading[0]);
 				}
     	
+    	
+        //it's arduino time 
+    	//Giving it a speed for the stepper motor and asking it for stuff back
+
+    	if (TriggerLeft>0) {
+    		byte[] triggerSend = {'L',triggerLeft};
+    		i2c.transaction(triggerSend, 2, receiveData, 1);
+    		System.out.println(receiveData[0]);
+    	}
+    	
+    	if (TriggerRight>0) {
+    		byte[] triggerSend = {'R',triggerRight};
+    		i2c.transaction(triggerSend, 2, receiveData, 1);
+    		System.out.println(receiveData[0]);
+    	}
+    	
+    	else if (TriggerRight==0 && TriggerLeft==0){
+    		byte[] triggerSend = {0};
+    		i2c.transaction(triggerSend, 1, null, 0);
+    	}
+    	
+    	if (ButtonX){
+	    	byte[] requestX = {'x'};
+	    	i2c.transaction(requestX, 1, heading, 1);
+	    	SmartDashboard.putNumber("Arduino heading", (double)heading[0]);
+    	}
+    	
 		//Clampy boi
 			if (ButtonStart){
 				clamp.set(0.5);
 				Timer.delay(0.5);
 				clamp.set(0);
 			}
-    	
 			if (ButtonBack){
 				clamp.set(-0.5);
 				Timer.delay(0.5);
 				clamp.set(0);
 			}
-    	
+			
 		//solenoids
 			if (BumperRight){
 				//solenoid.set(Relay.Value.kReverse);
