@@ -62,6 +62,7 @@ public class Robot extends IterativeRobot {
 	int processStep = 1; //a step of autonomous
 	double driveSpeed = .5;
 	boolean retracted = false;
+	boolean clawState;
 	
 	public void updateAll(){
 		updateController();
@@ -170,10 +171,10 @@ public class Robot extends IterativeRobot {
     	//1. go forward, except we're starting out backwards.
     	//so go backwards
     	if(processStep == 1){
-    		rBack.set(-0.5);
-    		rFront.set(-0.5);
-    		lBack.set(0.5);
-    		lFront.set(0.5);
+    		rBack.set(0.5); //hope it goes forward this time
+    		rFront.set(0.5);
+    		lBack.set(-0.5);
+    		lFront.set(-0.5);
     		Timer.delay(8);
     		rBack.set(0);
     		rFront.set(0);
@@ -275,19 +276,18 @@ public class Robot extends IterativeRobot {
 				}
     	
 		//Clampy boi
-			if (ButtonStart){
-				clamp.set(0.5);
-				Timer.delay(0.5);
-				clamp.set(0);
+			if (TriggerLeft>0){
+				clamp.set(TriggerLeft);
 			}
-			if (ButtonBack){
-				clamp.set(-0.5);
-				Timer.delay(0.5);
+			if (TriggerRight>0){
+				clamp.set(-1*TriggerRight);
+			}
+			else if (TriggerLeft==0 && TriggerRight ==0){
 				clamp.set(0);
 			}
 			
-		//solenoids
-			if (BumperRight && retracted == true){
+		//Pneumatic Solenoids - Comment out if using EM solenoids
+			/*if (BumperRight && retracted == true){
 				airSolenoid.set(DoubleSolenoid.Value.kForward);
 				Timer.delay(0.1);
 				retracted = false;
@@ -298,8 +298,18 @@ public class Robot extends IterativeRobot {
 				Timer.delay(0.5); //to prevent rapid fire (and subsequent loss of air pressure)
 				airSolenoid.set(DoubleSolenoid.Value.kOff);
 				retracted = true;
+			}*/
+		
+		//Electromagnetic Solenoids - Comment out if using pneumatic solenoids
+			if (BumperRight){
+				solenoid.set(Relay.Value.kReverse);
+				solenoid.set(Relay.Value.kOn);
+				Timer.delay(0.1);
 			}
-			
+			else{
+				solenoid.set(Relay.Value.kForward);
+				solenoid.set(Relay.Value.kOff);
+			}
 		//idk just leave it
         Scheduler.getInstance().run();
     }
